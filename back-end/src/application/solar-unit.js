@@ -44,7 +44,7 @@ export const getsolarUnitById=async(req,res)=>{
 export const updatesolarUnit=async(req,res)=>{
     const {id} =req.params;
     const { serialNumber, installationDate, capacity, status }=req.body; 
-    const solarUnit=await solarunit.findById(id);
+    const solarUnit=await SolarUnit.findById(id);
 
     if(!solarUnit){
         return res.status(404).json({message:"Solar unit not found."})
