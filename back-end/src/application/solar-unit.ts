@@ -1,35 +1,39 @@
 import { v4 as uuidv4 } from "uuid";
 import {SolarUnit} from "../infrastructure/entities/SolarUnit";
-import {Request,Response} from "express";
+import {Request,Response,NextFunction} from "express";
+import {z} from 'zod';
+import { CreateSolarUnit,UpdateSolarUnit } from "../domen/dto/Solar-unit";
+import { NotFoundError,ValidationError } from "../domen/error/Error";
 
-export const getAllsolarUnits=async(req:Request,res:Response)=>{
+export const getAllsolarUnits=async(req:Request,res:Response, next:NextFunction)=>{
     try {
         const solarunits = await SolarUnit.find();
         res.status(200).json(solarunits);
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        next(error);
     }
 }
 
-export const creatSolarUnit=async(req:Request,res:Response)=>{
+export const creatSolarUnit=async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const{serialNumber, installationDate, capacity, status }=req.body;
-        
+        const data:z.infer<typeof CreateSolarUnit>=req.body;
+        const{serialNumber, installationDate, capacity, status }=data;
+
         const newsolarUnit={
-        serialNumber,
-        installationDate,
-        capacity,
-        status,
+        serialNumber:data.serialNumber,
+        installationDate:new Date(data.installationDate),
+        capacity:data.capacity,
+        status:data.status,
     };
 
     const creatSolarUnit=await SolarUnit.create(newsolarUnit);
     res.status(201).json(creatSolarUnit);
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        next(error);
     }
 }
 
-export const getsolarUnitById=async(req:Request,res:Response)=>{
+export const getsolarUnitById=async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const {id} =req.params;
         const solarunit=await SolarUnit.findById(id);
@@ -39,12 +43,13 @@ export const getsolarUnitById=async(req:Request,res:Response)=>{
         }
     res.status(201).json(solarunit);
 }catch (error) {
-    res.status(500).json({ message: (error as Error).message });
+    next(error);
 }
 }
-export const updatesolarUnit=async(req:Request,res:Response)=>{
+export const updatesolarUnit=async(req:Request,res:Response,next:NextFunction)=>{
     const {id} =req.params;
-    const { serialNumber, installationDate, capacity, status }=req.body; 
+    const data:z.infer<typeof UpdateSolarUnit>=req.body;
+    const { serialNumber, installationDate, capacity, status }=data; 
     const solarUnit=await SolarUnit.findById(id);
 
     if(!solarUnit){
@@ -52,14 +57,14 @@ export const updatesolarUnit=async(req:Request,res:Response)=>{
     }
 
     const updatesolarUnit=await SolarUnit.findByIdAndUpdate(id,{
-        serialNumber,
-        installationDate,
-        capacity,
-        status,
+        serialNumber:data.serialNumber,
+        installationDate:data.installationDate,
+        capacity:data.capacity,
+        status:data.status,
     });
     res.status(200).json(updatesolarUnit);
 };
-export const deletesolarUnit=async(req:Request,res:Response)=>{
+export const deletesolarUnit=async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const {id} =req.params;
         const solarunit=await SolarUnit.findById(id);
@@ -70,6 +75,6 @@ export const deletesolarUnit=async(req:Request,res:Response)=>{
     await SolarUnit.findByIdAndDelete(id);
     res.status(204).send();
     }catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        next(error);
     }
 };
