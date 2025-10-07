@@ -13,6 +13,13 @@ export const getAllsolarUnits=async(req:Request,res:Response, next:NextFunction)
         next(error);
     }
 }
+export const createSolarUnitValidator=(req:Request,res:Response,next:NextFunction)=>{
+       const result = CreateSolarUnit.safeParse(req.body);
+       if (!result.success) {
+           return next(new ValidationError(result.error.message));
+       }
+       next();
+}
 
 export const creatSolarUnit=async(req:Request,res:Response,next:NextFunction)=>{
     try {
@@ -45,6 +52,13 @@ export const getsolarUnitById=async(req:Request,res:Response,next:NextFunction)=
 }catch (error) {
     next(error);
 }
+}
+export const updatesolarUnitValidator=(req:Request,res:Response,next:NextFunction)=>{
+    const result = UpdateSolarUnit.safeParse(req.body);
+    if(!result.success){
+        return next(new ValidationError(result.error.message));
+    }
+    next();
 }
 export const updatesolarUnit=async(req:Request,res:Response,next:NextFunction)=>{
     const {id} =req.params;

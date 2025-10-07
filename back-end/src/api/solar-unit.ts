@@ -4,12 +4,13 @@ import {
     creatSolarUnit,
     getsolarUnitById,
     updatesolarUnit,
-    deletesolarUnit
+    deletesolarUnit,
+    createSolarUnitValidator
 } from "../application/solar-unit";
 
 const solarUnitRouter = express.Router();
 
-solarUnitRouter.route("/").get(getAllsolarUnits).post(creatSolarUnit);
+solarUnitRouter.route("/").get(getAllsolarUnits).post(createSolarUnitValidator).post(creatSolarUnit);
 
 solarUnitRouter
     .route("/:id")

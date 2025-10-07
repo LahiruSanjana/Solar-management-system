@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 const Navigation = () =>{
   const user="LF";
 
     return(
          <nav className="px-52 py-5 flex justify-between">
-            <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
                  <div className="flex justify-center items-center w-10 h-10 bg-lime-400 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" 
                     width="24" height="24" viewBox="0 0 24 24" 
@@ -16,9 +18,9 @@ const Navigation = () =>{
                 </svg>
                 </div>
                 <span className="text-xl font-semibold font-sans">Aelora</span>
-            </div>  
+            </Link>  
             <div className="flex justify-center gap-14">
-                  <div className="flex justify-center items-center px-3 py-2 text-gray-600 gap-3">
+                  <Link to="/dashboard" className="flex justify-center items-center px-3 py-2 text-gray-600 gap-3">
                     <div className="flex justify-center items-center w-4 h-4">
                         <svg xmlns="http://www.w3.org/2000/svg" 
                       width="24" height="24" viewBox="0 0 24 24" fill="none" 
@@ -29,7 +31,7 @@ const Navigation = () =>{
                       <path d="M13 17V5"/><path d="M8 17v-3"/></svg>
                     </div>
                     <span className="text-base font-semibold font-sans">Dashboard</span>
-                  </div>
+                  </Link>
                   <div className="flex justify-center items-center gap-3 font-semibold font-sans">
                       <div className="w-10 h-10 flex justify-center items-center bg-blue-400 rounded-full text-white text-xl">{user}</div>
                       <span className="text-gray-500 text-lg">Lahiru</span>
