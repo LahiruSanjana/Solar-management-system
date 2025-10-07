@@ -5,13 +5,10 @@ const EnergyCard =(props)=>{
     const energyunit='kWh';
     const [isSelected,setIsSelected]=useState(false);
 
-    
     const handleClick= ()=>{
          setIsSelected(!isSelected);
          
     };
-
-    
 
     return(
         <div 
