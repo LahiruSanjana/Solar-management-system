@@ -2,6 +2,12 @@ import EnergyCard from "./EnergyCard"
 import Tab from "./Tab";
 import EnergyProductionCards from "./EnergyProductionCards";
 import { useSelector } from "react-redux";
+import {Button} from "@/components/ui/button";
+import { getAllEnergyGenerationRecords } from "../../lib/api/energygenerationRecordes";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useGetEnergyGenerationRecordsQuery } from "../../lib/redux/Query";
+import { subDays, toDate, format } from "date-fns";
 
 const SolarEnergyProduction = () => {
  
@@ -21,7 +27,50 @@ const SolarEnergyProduction = () => {
 
     const selectTab=useSelector((state)=>state.ui.selectedHomeTab);
 
-    const filteredData = solarData.filter(e1 => {
+    
+    const { data:energyRecords, error, isLoading ,isError} = useGetEnergyGenerationRecordsQuery({
+        id:"68fa62e64b66eab56ab501da",
+        groupBy:"date"
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.toString()}</div>;
+    }
+
+    const energyGenerationRecords = energyRecords.slice(0,7).map((e1) => {
+        return{
+            day:format(toDate(e1._id.date),'EEE'),
+            date:format(toDate(e1._id.date),'MMM d'),
+            energy:e1.totalEnergy.toFixed(3),
+            hasAnomaly:e1.hasAnomaly
+        };
+    });
+    console.log(energyGenerationRecords);
+    // const [energyRecords,setEnergyGenerationRecords]=useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
+    // const [isError,setIsError]=useState(false);
+
+    // useEffect(() => {
+    //     getAllEnergyGenerationRecords("68dd2d1e36ce51131b68a17a").then((data)=>{
+    //         setEnergyGenerationRecords(data);
+    //     }).catch((error)=>{
+    //         setIsError(true);
+    //         setError(error);
+    //     }).finally(()=>{
+    //         setLoading(false);
+    //     });
+    // },[]);
+    // const handelDataFetch=()=>{
+    //     getAllEnergyGenerationRecords("68dd2d1e36ce51131b68a17a")
+    // }
+    //this commented code is replaced by RTK query it manages loading and error states internally
+
+    const energyGenerationRecordsFilteredData = energyGenerationRecords.filter(e1 => {
         if (selectTab === "all") {
             return true; 
         }
@@ -30,6 +79,7 @@ const SolarEnergyProduction = () => {
         }
         return false;
     });
+      console.log(energyGenerationRecordsFilteredData);
 
     return (
         <section className="px-20 py-10">
@@ -37,6 +87,9 @@ const SolarEnergyProduction = () => {
                 <h2 className="mb-2 text-2xl font-bold text-gray-900">Solar Energy Production</h2>
                 <p className="text-base text-gray-600">Daily energy output for the past 7 days</p>
             </div> 
+            {/* < div className="mb-4">
+                <Button onClick={handelDataFetch}>Get Data</Button>
+            </div> */}
             <div>
                 {
                    tab.map((t)=>{
@@ -49,7 +102,7 @@ const SolarEnergyProduction = () => {
                 })}
             </div>
             <EnergyProductionCards
-                solarData={filteredData}
+                solarData={energyGenerationRecordsFilteredData}
             />
         </section>                 
     );
