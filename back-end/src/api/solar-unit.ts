@@ -5,7 +5,7 @@ import {
     getsolarUnitById,
     updatesolarUnit,
     deletesolarUnit,
-    createSolarUnitValidator
+    createSolarUnitValidator,
 } from "../application/solar-unit";
 
 const solarUnitRouter = express.Router();

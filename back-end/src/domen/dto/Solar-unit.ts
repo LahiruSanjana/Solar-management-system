@@ -17,3 +17,9 @@ export const UpdateSolarUnit = z.object({
 export const deletesolarUnit=z.object({
     id:z.string().min(1),
 });
+
+export const GetAllEnergyGenerationRecordsSolarUnitDto = z.object({
+    groupBy: z.enum(["date"]).optional(),
+    limit: z.string().min(1).optional(),
+});
+

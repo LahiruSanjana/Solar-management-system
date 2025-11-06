@@ -29,8 +29,9 @@ const SolarEnergyProduction = () => {
 
     
     const { data:energyRecords, error, isLoading ,isError} = useGetEnergyGenerationRecordsQuery({
-        id:"68fa62e64b66eab56ab501da",
-        groupBy:"date"
+        id:"69035df9b3c113ad8709d734",
+        groupBy:"date",
+        limit:7
     });
 
     if (isLoading) {
@@ -41,12 +42,12 @@ const SolarEnergyProduction = () => {
         return <div>Error: {error.toString()}</div>;
     }
 
-    const energyGenerationRecords = energyRecords.slice(0,7).map((e1) => {
-        return{
-            day:format(toDate(e1._id.date),'EEE'),
-            date:format(toDate(e1._id.date),'MMM d'),
-            energy:e1.totalEnergy.toFixed(3),
-            hasAnomaly:e1.hasAnomaly
+    const energyGenerationRecords = energyRecords.slice(0, 7).map((e1) => {
+        return {
+            day: format(toDate(e1._id.date), 'EEE'),
+            date: format(toDate(e1._id.date), 'MMM d'),
+            energy: e1.totalEnergy.toFixed(2),
+            hasAnomaly: e1.hasAnomaly
         };
     });
     console.log(energyGenerationRecords);

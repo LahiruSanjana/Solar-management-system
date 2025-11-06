@@ -1,7 +1,11 @@
+import Datacard from "./Datacard";
+import Datachart from "./Datachart";
+
 const DashboardPage = () => {
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className="ml-8 mt-4">
+            <Datacard />
+            <Datachart />
         </div>
     );
 }
