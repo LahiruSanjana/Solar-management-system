@@ -8,9 +8,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useGetEnergyGenerationRecordsQuery } from "../../lib/redux/Query";
 import { subDays, toDate, format } from "date-fns";
+import { SignedOut,SignedIn,useUser } from "@clerk/clerk-react";
 
 const SolarEnergyProduction = () => {
- 
+    const { user } = useUser();
     const solarData = [
         { day: 'Mon',date:'Sep 1', energy: 15.9,hasAnomaly:false },
         { day: 'Tue',date:'Sep 2', energy: 38.3,hasAnomaly:false },    
@@ -29,7 +30,7 @@ const SolarEnergyProduction = () => {
 
     
     const { data:energyRecords, error, isLoading ,isError} = useGetEnergyGenerationRecordsQuery({
-        id:"69035df9b3c113ad8709d734",
+        id: user?.id,
         groupBy:"date",
         limit:7
     });
@@ -81,30 +82,58 @@ const SolarEnergyProduction = () => {
         return false;
     });
       console.log(energyGenerationRecordsFilteredData);
+    const energyGenerationRecordsFilteredDataSignOut = solarData.filter(e1 => {
+        if (selectTab === "all") {
+            return true;
+        }
+        else if (selectTab === "anomaly") {
+            return e1.hasAnomaly;
+        }
+        return false;
+    });
+    console.log(energyRecords.id);
 
     return (
         <section className="px-20 py-10">
-            <div className="mb-6">           
+            <div className="mb-6">
                 <h2 className="mb-2 text-2xl font-bold text-gray-900">Solar Energy Production</h2>
                 <p className="text-base text-gray-600">Daily energy output for the past 7 days</p>
-            </div> 
+            </div>
             {/* < div className="mb-4">
                 <Button onClick={handelDataFetch}>Get Data</Button>
             </div> */}
-            <div>
-                {
-                   tab.map((t)=>{
-                    return(
-                        <Tab
-                            key={t.value}
-                            tab={t}
-                        />  
-                    );
-                })}
-            </div>
-            <EnergyProductionCards
-                solarData={energyGenerationRecordsFilteredData}
-            />
+            <SignedOut>
+                <div>
+                    {
+                        tab.map((t) => {
+                            return (
+                                <Tab
+                                    key={t.value}
+                                    tab={t}
+                                />
+                            );
+                        })}
+                </div>
+                <EnergyProductionCards
+                    solarData={energyGenerationRecordsFilteredDataSignOut}
+                />
+            </SignedOut>
+            <SignedIn>
+                <div>
+                    {
+                        tab.map((t) => {
+                            return (
+                                <Tab
+                                    key={t.value}
+                                    tab={t}
+                                />
+                            );
+                        })}
+                </div>
+                <EnergyProductionCards
+                    solarData={energyGenerationRecordsFilteredData}
+                />
+            </SignedIn>
         </section>                 
     );
 };

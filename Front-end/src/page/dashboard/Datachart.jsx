@@ -5,6 +5,7 @@ import { useGetEnergyGenerationRecordsQuery, useGetLast24HoursEnergyDataQuery } 
 import { toDate, format } from "date-fns"
 import { formatInTimeZone } from 'date-fns-tz'
 import { useState } from "react"
+import { useUser } from "@clerk/clerk-react";
 import {
   Select,
   SelectTrigger,
@@ -37,6 +38,7 @@ const chartConfig = {
 }
 
 export default function ChartAreaDefault() {
+  const { user } = useUser();
   const timeZone = "Europe/London";
   const [selectedDay, setSelectedDay] = useState(7)
 
@@ -46,13 +48,13 @@ export default function ChartAreaDefault() {
 
   // Queries
   const energyQuery7or30 = useGetEnergyGenerationRecordsQuery(
-    { id: "69035df9b3c113ad8709d734", groupBy: "date", limit: selectedDay },
+    { id: user?.id, groupBy: "date", limit: selectedDay },
     { skip: selectedDay === 24 }
   )
 
   const energyQuery24 = useGetLast24HoursEnergyDataQuery(
-    { id: "69035df9b3c113ad8709d734" },
-    { skip: selectedDay !== 24 }
+    { id: user?.id },
+    { skip: !user?._id || selectedDay !== 24 }
   )
 
   const energyRecords = selectedDay === 24 ? energyQuery24.data || [] : energyQuery7or30.data || []

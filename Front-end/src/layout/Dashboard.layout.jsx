@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 const NavigationLayout = () => {
   return (
-    <SidebarProvider>
+    <SidebarProvider >
         <AppSidebar />
         <main className="w-full bg-gray-200 relative">
            <SidebarTrigger className="block ml-4" />
