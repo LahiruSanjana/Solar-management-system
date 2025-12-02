@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { SolarUnit } from "../infrastructure/entities/SolarUnit";
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import { z } from 'zod';
 import { CreateSolarUnit, UpdateSolarUnit } from "../domen/dto/Solar-unit";
 import { NotFoundError, ValidationError } from "../domen/error/Error";
@@ -106,6 +106,47 @@ export const deletesolarUnit = async (req: Request, res: Response, next: NextFun
         await SolarUnit.findByIdAndDelete(id);
         res.status(204).send();
     } catch (error) {
+        next(error);
+    }
+};
+export const getSolarStatusStats = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const stats = await SolarUnit.aggregate([
+            {
+                $group:{
+                    _id:"$status",
+                    count:{$sum:1}
+                }
+            }
+        ]);
+        const result: { [key: string]: number } = {
+            active: 0,
+            inactive: 0,
+            maintenance: 0
+        };
+        
+        stats.forEach(stat => {
+            const status = stat._id.toLowerCase();
+            if (status in result) {
+                result[status] = stat.count;
+            }
+        });
+        
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+export const getAllsolarUnitssum = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const solarunits = await SolarUnit.aggregate([
+            {
+                $count: "totalSolarUnits"
+            }
+        ]);
+        const total = solarunits.length > 0 ? solarunits[0].totalSolarUnits : 0;
+        res.status(200).json({ totalSolarUnits: total });
+    }catch (error) {
         next(error);
     }
 };

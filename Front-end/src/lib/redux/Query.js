@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getAllSolarUnitsById } from '../api/Solar-unit';
 
 const baseUrl = 'http://localhost:8000/api';
 
@@ -36,6 +37,16 @@ export const api = createApi({
     getSolarUnitsByClerkId: builder.query({
       query: () => `solar-units/me`,
     }),
+
+    getSolarStatusStats: builder.query({
+      query: () => `solar-units/stats`,
+    }),
+    getAllSolarUnitsSum: builder.query({
+      query: () => `solar-units/total`,
+    }),
+    getAllSolarUnits: builder.query({
+      query: () => `solar-units/`,
+    }),
   }),
 });
 
@@ -43,4 +54,7 @@ export const {
   useGetEnergyGenerationRecordsQuery,
   useGetLast24HoursEnergyDataQuery,
   useGetSolarUnitsByClerkIdQuery,
+  useGetSolarStatusStatsQuery,
+  useGetAllSolarUnitsSumQuery,
+  useGetAllSolarUnitsQuery,
 } = api;

@@ -1,7 +1,7 @@
 "use client"
 
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
-import { useGetEnergyGenerationRecordsQuery, useGetLast24HoursEnergyDataQuery } from "@/lib/redux/Query"
+import { useGetEnergyGenerationRecordsQuery, useGetLast24HoursEnergyDataQuery,useGetSolarUnitsByClerkIdQuery } from "@/lib/redux/Query"
 import { toDate, format } from "date-fns"
 import { formatInTimeZone } from 'date-fns-tz'
 import { useState } from "react"
@@ -37,7 +37,7 @@ const chartConfig = {
   },
 }
 
-export default function ChartAreaDefault() {
+export default function ChartAreaDefault({ solarUnitId }) {
   const { user } = useUser();
   const timeZone = "Europe/London";
   const [selectedDay, setSelectedDay] = useState(7)
@@ -45,16 +45,14 @@ export default function ChartAreaDefault() {
   const handleDayChange = (value) => {
     setSelectedDay(Number(value))
   }
-
-  // Queries
   const energyQuery7or30 = useGetEnergyGenerationRecordsQuery(
-    { id: user?.id, groupBy: "date", limit: selectedDay },
+    { id: solarUnitId, groupBy: "date", limit: selectedDay },
     { skip: selectedDay === 24 }
   )
 
   const energyQuery24 = useGetLast24HoursEnergyDataQuery(
-    { id: user?.id },
-    { skip: !user?._id || selectedDay !== 24 }
+    { id: solarUnitId },
+    //{ skip: !user?._id || selectedDay !== 24 }
   )
 
   const energyRecords = selectedDay === 24 ? energyQuery24.data || [] : energyQuery7or30.data || []

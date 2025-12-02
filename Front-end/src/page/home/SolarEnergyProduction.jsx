@@ -4,14 +4,14 @@ import EnergyProductionCards from "./EnergyProductionCards";
 import { useSelector } from "react-redux";
 import {Button} from "@/components/ui/button";
 import { getAllEnergyGenerationRecords } from "../../lib/api/energygenerationRecordes";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useState } from "react";
-import { useGetEnergyGenerationRecordsQuery } from "../../lib/redux/Query";
+import { useGetEnergyGenerationRecordsQuery} from "../../lib/redux/Query";
 import { subDays, toDate, format } from "date-fns";
 import { SignedOut,SignedIn,useUser } from "@clerk/clerk-react";
 
-const SolarEnergyProduction = () => {
-    const { user } = useUser();
+const SolarEnergyProduction = ({ solarUnitId }) => {
+    const { user, isSignedIn } = useUser();
     const solarData = [
         { day: 'Mon',date:'Sep 1', energy: 15.9,hasAnomaly:false },
         { day: 'Tue',date:'Sep 2', energy: 38.3,hasAnomaly:false },    
@@ -27,50 +27,35 @@ const SolarEnergyProduction = () => {
     ]
 
     const selectTab=useSelector((state)=>state.ui.selectedHomeTab);
-
     
-    const { data:energyRecords, error, isLoading ,isError} = useGetEnergyGenerationRecordsQuery({
-        id: user?.id,
-        groupBy:"date",
-        limit:7
+    const { data: energyRecords, error, isLoading, isError } = useGetEnergyGenerationRecordsQuery({
+        id: solarUnitId,
+        groupBy: "date",
+        limit: 7
+    }, {
+        skip: !isSignedIn || !solarUnitId  
     });
-
-    if (isLoading) {
+    
+    if (isSignedIn && isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (error) {
+    if (isSignedIn && error) {
         return <div>Error: {error.toString()}</div>;
     }
 
-    const energyGenerationRecords = energyRecords.slice(0, 7).map((e1) => {
+    const energyGenerationRecords = (isSignedIn && energyRecords) ? energyRecords.slice(0, 7).map((e1) => {
         return {
             day: format(toDate(e1._id.date), 'EEE'),
             date: format(toDate(e1._id.date), 'MMM d'),
             energy: e1.totalEnergy.toFixed(2),
             hasAnomaly: e1.hasAnomaly
         };
-    });
+    }) : [];
+    
     console.log(energyGenerationRecords);
-    // const [energyRecords,setEnergyGenerationRecords]=useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-    // const [isError,setIsError]=useState(false);
-
-    // useEffect(() => {
-    //     getAllEnergyGenerationRecords("68dd2d1e36ce51131b68a17a").then((data)=>{
-    //         setEnergyGenerationRecords(data);
-    //     }).catch((error)=>{
-    //         setIsError(true);
-    //         setError(error);
-    //     }).finally(()=>{
-    //         setLoading(false);
-    //     });
-    // },[]);
-    // const handelDataFetch=()=>{
-    //     getAllEnergyGenerationRecords("68dd2d1e36ce51131b68a17a")
-    // }
-    //this commented code is replaced by RTK query it manages loading and error states internally
+    
+    console.log(energyGenerationRecords);
 
     const energyGenerationRecordsFilteredData = energyGenerationRecords.filter(e1 => {
         if (selectTab === "all") {
@@ -81,7 +66,9 @@ const SolarEnergyProduction = () => {
         }
         return false;
     });
-      console.log(energyGenerationRecordsFilteredData);
+    
+    console.log(energyGenerationRecordsFilteredData);
+    
     const energyGenerationRecordsFilteredDataSignOut = solarData.filter(e1 => {
         if (selectTab === "all") {
             return true;
@@ -91,7 +78,6 @@ const SolarEnergyProduction = () => {
         }
         return false;
     });
-    console.log(energyRecords.id);
 
     return (
         <section className="px-20 py-10">
@@ -99,9 +85,6 @@ const SolarEnergyProduction = () => {
                 <h2 className="mb-2 text-2xl font-bold text-gray-900">Solar Energy Production</h2>
                 <p className="text-base text-gray-600">Daily energy output for the past 7 days</p>
             </div>
-            {/* < div className="mb-4">
-                <Button onClick={handelDataFetch}>Get Data</Button>
-            </div> */}
             <SignedOut>
                 <div>
                     {

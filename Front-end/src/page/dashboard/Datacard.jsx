@@ -1,11 +1,11 @@
-import { useGetEnergyGenerationRecordsQuery } from "../../lib/redux/Query";
+import { useGetEnergyGenerationRecordsQuery, useGetSolarUnitsByClerkIdQuery } from "../../lib/redux/Query";
 import { useGetEnvironmentConditionQuery } from "../../lib/redux/Weather";
 import { subDays, toDate, format } from "date-fns";
 import Enviromentcondition from "./enviromentcondition.jpg";
 import { Thermometer, Wind, Droplet } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
 
-const Datacard = () => {
+const Datacard = ({ title = "Data Overview", solarUnitId }) => {
   const { user } = useUser();
 
   const weatherData = [
@@ -14,21 +14,24 @@ const Datacard = () => {
     { icon: <Thermometer />, parameter: 'temp_c', unit: '°C', title: 'Temperature' },
   ];
 
-  const { data: energyRecords = [], error: energyError, isLoading: energyLoading, isError: energyIsError } =
+  const { data, error, isLoading, isError } =
     useGetEnergyGenerationRecordsQuery({
-      id: user?.id,
+      id: solarUnitId,
       groupBy: "date",
       limit: 7
     });
+
   const { data: environmentCondition = {}, error: envError, isLoading: envLoading, isError: envIsError } =
     useGetEnvironmentConditionQuery({
       API_KEY: import.meta.env.VITE_WEATHER_API_KEY
     });
 
-  if (energyLoading || envLoading) return <div>Loading...</div>;
-  if (energyIsError || envIsError) return <div>Error: {energyError?.toString() || envError?.toString()}</div>;
+  if (isLoading || envLoading ) return (
+      <div>Loading.....</div>
+    );
+  if (isError || envIsError) return <div>Error: {error?.toString() || envError?.toString()}</div>;
 
-  const energyGenerationRecords = energyRecords.slice(0, 7).map((e1) => ({
+  const energyGenerationRecords = data.slice(0, 7).map((e1) => ({
     date: format(toDate(e1._id.date), 'MMM d'),
     energy: e1.totalEnergy.toFixed(2),
   }));

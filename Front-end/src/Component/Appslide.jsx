@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings,LayoutDashboard,TriangleAlert,ChartColumn } from "lucide-react"
+
 import { Link } from "react-router-dom";
 
 import {
@@ -12,26 +12,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-// Menu items.
-const items = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Anomaly",
-    url: "#",
-    icon: TriangleAlert,
-  },
-  {
-    title: "Analytics",
-    url: "#",
-    icon: ChartColumn,
-  },
-]
 
-export function AppSidebar() {
+export function AppSidebar(props) {
   return (
     <Sidebar className="py-4">
       <SidebarContent>
@@ -54,7 +36,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-10">
             <SidebarMenu>
-              {items.map((item) => (
+              {props.items.map((item) => (
                 <SidebarMenuItem key={item.title} className="mb-1 text-black font-semibold  text-9xl" size="2xl">
                   <SidebarMenuButton asChild>
                     <a href={item.url}>

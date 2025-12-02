@@ -13,6 +13,7 @@ import SignUpPage from './page/auth/Sign-up-page';
 import ProtectLayout from './layout/Protect.layout';
 import AuthorizedLayout from './layout/authorized.layout';
 import Admindashboard from './page/admin/Admindashboard.jsx';
+import SolarUnitAdd from './page/admin/SolarUnitAdd';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -39,6 +40,7 @@ function App() {
                 </Route>
                 <Route element={<AuthorizedLayout />}>
                   <Route path="/admin" element={<Admindashboard />} />
+                  <Route path="/admin/solar-units" element={<SolarUnitAdd/>} />
                 </Route>
               </Route>
             </Route>

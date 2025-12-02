@@ -68,10 +68,12 @@ export const getAllEnergyGenerationRecordsSolarUnit = async (req: Request, res: 
     if (!result.success) {
       return new ValidationError(result.error.message);
     }
-    const { groupBy, limit } = req.query;
+    const { groupBy, limit } = result.data;
     if (!groupBy) {
-       const records = await EnergyGenerationRecord.find({ solarUnitId:id }).sort({ timestamp: -1 });
-      res.status(200).json(records);
+      const energyGenerationRecords=await EnergyGenerationRecord.find({
+        solarUnitId: id,
+      }).sort({ timestamp: -1 });
+      return res.status(200).json(energyGenerationRecords);
     }
 
     if (groupBy === "date") {  
