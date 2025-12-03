@@ -54,6 +54,7 @@ export default function ChartAreaDefault({ solarUnitId }) {
     { id: solarUnitId },
     //{ skip: !user?._id || selectedDay !== 24 }
   )
+  console.log("SolarUnitId in Datachart:", energyQuery24);
 
   const energyRecords = selectedDay === 24 ? energyQuery24.data || [] : energyQuery7or30.data || []
   const isLoading = selectedDay === 24 ? energyQuery24.isLoading : energyQuery7or30.isLoading
@@ -62,6 +63,14 @@ export default function ChartAreaDefault({ solarUnitId }) {
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error.toString()}</div>
+  if(!energyRecords || energyRecords.length===0) return  (
+      <div className="p-6 bg-gray-50 rounded-xl shadow animate-pulse mx-4 mt-4">
+        <div className="text-red-500 text-2xl mb-4">No solar units available</div>
+        <div className="h-4 w-48 bg-gray-300 rounded mb-3"></div>
+        <div className="h-3 w-64 bg-gray-200 rounded mb-2"></div>
+        <div className="h-3 w-56 bg-gray-200 rounded"></div>
+      </div>
+    );
 
   const energyGenerationRecords = energyRecords.map((e) => {
     const dateValue = e._id?.date ? toDate(e._id.date) : new Date(e.timestamp)

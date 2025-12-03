@@ -47,6 +47,16 @@ export const api = createApi({
     getAllSolarUnits: builder.query({
       query: () => `solar-units/`,
     }),
+    createSolarUnit: builder.mutation({
+      query: (body) => ({
+        url: `solar-units/`,
+        method: 'POST',
+        body,
+      }),
+    }),
+    getSolarUnitById: builder.query({
+      query: (id) => `solar-units/${id}`,
+    }),
   }),
 });
 
@@ -57,4 +67,6 @@ export const {
   useGetSolarStatusStatsQuery,
   useGetAllSolarUnitsSumQuery,
   useGetAllSolarUnitsQuery,
+  useCreateSolarUnitMutation,
+  useGetSolarUnitByIdQuery
 } = api;

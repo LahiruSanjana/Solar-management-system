@@ -1,10 +1,10 @@
+import SolarUnitView from "./components/SolarUnitView";
 import { AppSidebar } from "@/Component/Appslide";
-import {icons, LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound} from "lucide-react";
+import { LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound} from "lucide-react";
 import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar";
-import Maindashboard from "./Maindashboard";
+const View = () => {
 
-const Admindashboard = () => {
-  const items = [
+    const items = [
     {
       title:"Dashboard",
       icon:LayoutDashboard,
@@ -23,14 +23,14 @@ const Admindashboard = () => {
       url: "#",
       }
   ];
-  return (
-    <SidebarProvider >
+    return (
+        <SidebarProvider >
         <AppSidebar items={items} />
         <main className="w-full relative px-6 bg-slate-400">
            <SidebarTrigger className="block ml-4" />
-           <Maindashboard />
+           <SolarUnitView />
         </main>
     </SidebarProvider>
-  );
-};
-export default Admindashboard;
+    );
+}
+export default View;

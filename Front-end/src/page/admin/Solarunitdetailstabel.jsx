@@ -125,6 +125,7 @@ const SolarUnitDetailsTable = () => {
                                             <Button 
                                                 size="sm"
                                                 className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-1"
+                                                onClick={() => Navigate(`/admin/solar-units/view/${unit._id}`)}
                                             >
                                                 <Eye className="w-4 h-4" />
                                                 View
