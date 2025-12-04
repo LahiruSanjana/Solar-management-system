@@ -28,11 +28,12 @@ const HomePage = () => {
 
   return (
     <>
-      <main>
+      <main className='bg-helios-bg'>
         <Herosection />
         <SolarEnergyProduction solarUnitId={solarUnits?._id} />
         <About />
       </main>
+      <div className='border-b-2 border-gray-400'></div>
       <Footer />
     </>
   );

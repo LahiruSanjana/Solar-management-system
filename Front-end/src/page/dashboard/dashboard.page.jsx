@@ -27,7 +27,7 @@ const DashboardPage = () => {
     console.log("Solar Units:", solarUnits);
 
     return (
-        <div className="ml-8 mt-4">
+        <div className="ml-8 mt-4 bg-slate-50 pb-8">
             <h2 className="text-4xl font-bold text-black">{user?.firstName}'s Home</h2>
             <p className="text-base text-gray-600">Welcome back to your Solar Energy Dashboard.</p>
             <Weather />

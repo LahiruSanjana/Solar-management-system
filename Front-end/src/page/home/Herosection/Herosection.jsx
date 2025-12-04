@@ -2,36 +2,36 @@ import  {Wind,Sailboat,Triangle,Shield} from 'lucide-react';
 import imgWindTurbine from "./wind-turbine.png";
 const Herosection = ()=>{
     return (
-       <div className="bg-white px-12 font-[Inter]">
-          <nav className="flex flex-wrap justify-between py-6">
-            <div className="flex flex-row justify-center items-center gap-3">
-                <div className="flex justify-center items-center rounded-full bg-lime-400 w-12 h-12">
-                    <Wind className="w-7 h-7 text-black sm:h-6 sm:w-6"/>
-                </div>
-                <span className="font-sans text-base font-medium">Solar Energy</span>
+       <div className="bg-helios-bg px-12 font-[Inter]">
+          <nav className="flex flex-wrap items-center justify-between gap-4 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex justify-center items-center rounded-full bg-lime-400 w-10 h-10 sm:w-12 sm:h-12">
+              <Wind className="w-5 h-5 sm:w-7 sm:h-7 text-black" aria-hidden />
             </div>
+            <span className="font-sans text-sm sm:text-base font-medium">Solar Energy</span>
+          </div>
 
-            <div className="flex flex-row justify-center items-center gap-3">
-                <div className="flex justify-center items-center rounded-full bg-blue-400 w-12 h-12">
-                    <Sailboat className="w-7 h-7 text-white sm:h-6 sm:w-6"/>
-                </div>
-                <span className="font-sans text-base font-medium">Home Dashboard</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex justify-center items-center rounded-full bg-blue-400 w-10 h-10 sm:w-12 sm:h-12">
+              <Sailboat className="w-5 h-5 sm:w-7 sm:h-7 text-white" aria-hidden />
             </div>
+            <span className="font-sans text-sm sm:text-base font-medium">Home Dashboard</span>
+          </div>
 
-            <div className="flex flex-row justify-center items-center gap-3">
-                <div className="flex justify-center items-center rounded-full bg-lime-400 w-12 h-12">
-                    <Triangle className="w-7 h-7 fill-current text-black sm:h-6 sm:w-6"/>
-                </div>
-                <span className="font-sans text-base font-medium">Real-Time Monitoring</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex justify-center items-center rounded-full bg-lime-400 w-10 h-10 sm:w-12 sm:h-12">
+              <Triangle className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-black" aria-hidden />
             </div>
+            <span className="font-sans text-sm sm:text-base font-medium">Real-Time Monitoring</span>
+          </div>
 
-            <div className="flex flex-row justify-center items-center gap-3">
-                <div className="flex justify-center items-center rounded-full bg-blue-400 w-12 h-12">
-                    <Shield className="w-7 h-7 text-white sm:h-6 sm:w-6"/>
-                </div>
-                <span className="font-sans text-base font-medium">Anomaly Detection</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex justify-center items-center rounded-full bg-blue-400 w-10 h-10 sm:w-12 sm:h-12">
+              <Shield className="w-5 h-5 sm:w-7 sm:h-7 text-white" aria-hidden />
             </div>
-          </nav>
+            <span className="font-sans text-sm sm:text-base font-medium">Anomaly Detection</span>
+          </div>
+        </nav>
           <main className="px-7 py-20 ">
             <div>
                 <h1 className="font-sans font-bold text-8xl leading-snug"> 

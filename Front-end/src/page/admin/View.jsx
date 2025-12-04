@@ -26,8 +26,8 @@ const View = () => {
     return (
         <SidebarProvider >
         <AppSidebar items={items} />
-        <main className="w-full relative px-6 bg-slate-400">
-           <SidebarTrigger className="block ml-4" />
+        <main className="w-full relative bg-slate-50">
+           <SidebarTrigger className="block " />
            <SolarUnitView />
         </main>
     </SidebarProvider>

@@ -122,6 +122,13 @@ export default function ChartAreaDefault({ solarUnitId }) {
               </defs>
 
               <CartesianGrid vertical={false} />
+
+              <defs>
+              <linearGradient id="limeGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="10%" stopColor="#84CC16" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#84CC16" stopOpacity={0.2}/>
+              </linearGradient>
+            </defs>
               <XAxis
                 dataKey="date"
                 tickLine={false}
@@ -141,11 +148,11 @@ export default function ChartAreaDefault({ solarUnitId }) {
               <Area
                 dataKey="energy"
                 type="natural"
-                stroke="#2563eb"
-                fill="url(#blueGradient)"
+                stroke="#84CC16"
+                fill="url(#limeGradient)"
                 fillOpacity={1}
                 strokeWidth={2}
-                dot={{ fill: "#2563eb" }}
+                dot={{ fill: "#84CC16" }}
                 activeDot={{ r: 6 }}
               />
             </AreaChart>

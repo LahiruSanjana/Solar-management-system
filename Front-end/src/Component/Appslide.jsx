@@ -1,4 +1,4 @@
-
+import Logo from "@/assets/logo.png";
 import { Link } from "react-router-dom";
 
 import {
@@ -15,29 +15,21 @@ import {
 
 export function AppSidebar(props) {
   return (
-    <Sidebar className="py-4">
-      <SidebarContent>
+    <Sidebar className="py-4 bg-helios-primary">
+      <SidebarContent className="bg-helios-primary text-white">
         <SidebarGroup>
           <SidebarGroupLabel>
-            <Link to="/" className="flex items-center gap-3">
-                 <div className="flex justify-center items-center w-10 h-10 bg-lime-400 rounded-full text-black">
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                    width="24" height="24" viewBox="0 0 24 24" 
-                    fill="none" stroke="currentColor" strokeWidth="2" 
-                    strokeLinecap="round" strokeLinejoin="round" 
-                    className="lucide lucide-wind-icon lucide-wind block">
-                    <path d="M12.8 19.6A2 2 0 1 0 14 16H2"/>
-                    <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/>
-                    <path d="M9.8 4.4A2 2 0 1 1 11 8H2"/>
-                </svg>
+            <Link to="/" className="flex items-start ">
+                 <div className="flex w-20 h-10 rounded-full text-white">
+                  <img src={Logo} alt="Logo" className="w-20 h-10"/>
                 </div>
-                <span className="text-xl font-bold font-sans text-black">Aelora</span>
+                <span className="text-xl font-bold font-sans text-lime-400 shadow-md ">HELIOS ENERGY</span>
             </Link> 
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-10">
             <SidebarMenu>
               {props.items.map((item) => (
-                <SidebarMenuItem key={item.title} className="mb-1 text-black font-semibold  text-9xl" size="2xl">
+                <SidebarMenuItem key={item.title} className="mb-1 text-white font-semibold  text-9xl" size="2xl">
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <item.icon />

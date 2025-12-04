@@ -24,7 +24,7 @@ const NavigationLayout = () => {
   return (
     <SidebarProvider >
         <AppSidebar items={items} />
-        <main className="w-full bg-gray-200 relative">
+        <main className="w-full bg-slate-50 relative">
            <SidebarTrigger className="block ml-4" />
            <Outlet />
         </main>

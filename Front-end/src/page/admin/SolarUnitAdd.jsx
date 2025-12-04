@@ -9,6 +9,8 @@ import { z } from "zod";
 // import { Label } from "recharts";
 import { Label } from "@/components/ui/label";
 import { useCreateSolarUnitMutation } from "@/lib/redux/Query";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // ✅ Zod validation schema (corrected)
 const solarUnitSchema = z.object({
@@ -40,6 +42,7 @@ const solarUnitSchema = z.object({
 
 
 const SolarUnitAdd = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     serialNumber: "",
     capacity: "",
@@ -165,6 +168,13 @@ const SolarUnitAdd = () => {
               Add New Solar Unit
             </h1>
             <p className="text-blue-100 mt-2 text-lg">Register your solar energy system</p>
+            <Button
+              variant="outline"
+              className="mt-6 text-black border-white hover:bg-white hover:text-blue-700"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" /> Back
+            </Button>
           </div>
         </div>
       </div>
