@@ -14,7 +14,7 @@ const SocialMedia = () => {
                 <span className="text-lg font-semibold text-blue-700">Smart Energy</span>
             </div>
             <div>
-                <p>
+                <p className="text-white">
                     Revolutionizing wind farm management <br /> 
                     through advanced digital twin technology and <br />
                     predictive insights.
@@ -22,10 +22,10 @@ const SocialMedia = () => {
             </div>
             <div>
                 <div className="flex justify-center items-center gap-4 mt-2">
-                    <Facebook className="text-gray-700 w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
-                    <Twitter className="text-gray-700 w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
-                    <Linkedin className="text-gray-700 w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
-                    <Github className="text-gray-700 w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
+                    <Facebook className="text-black w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
+                    <Twitter className="text-black w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
+                    <Linkedin className="text-black w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
+                    <Github className="text-black w-10 h-10 bg-gray-300 rounded-full p-3 hover:bg-blue-500 hover:text-white" />
                 </div>
             </div>
         </div>

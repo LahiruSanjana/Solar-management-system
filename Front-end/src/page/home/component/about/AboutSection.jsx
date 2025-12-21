@@ -5,7 +5,6 @@ const AboutSection = () => {
     return (
         <main className="px-4 sm:px-6 md:px-16 py-12 md:py-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 items-center">
-                {/* Left: image - centers on small screens, aligns left on md+ */}
                 <div className="flex justify-center md:justify-start">
                     <img
                         alt="Wind Turbine"
@@ -13,8 +12,6 @@ const AboutSection = () => {
                         className="rounded-2xl w-full max-w-[640px] h-auto object-cover"
                     />
                 </div>
-
-                {/* Right: text and small image */}
                 <div className="py-6 md:py-24">
                     <div>
                         <h1 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl leading-tight pb-6 md:pb-8">

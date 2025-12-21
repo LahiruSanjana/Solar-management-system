@@ -4,9 +4,9 @@ const Outcome = () => {
         <div className="flex flex-col justify-start items-start gap-2 ">
             <div className="flex justify-center items-center gap-2 ">
                 <Wind className="text-lime-400 w-6 h-6"/>
-                <span className="font-sans text-lg font-semibold">Solutions</span>
+                <span className="font-sans text-lg font-semibold text-blue-700">Solutions</span>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2  mt-4">
+            <div className="flex flex-col justify-start items-start gap-2  mt-4 text-white">
                 <span>Digital Twin Platform</span>
                 <span>Predictive Analytics</span>
                 <span>Remote Monitoring</span>

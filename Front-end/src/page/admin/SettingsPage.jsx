@@ -23,7 +23,7 @@ const SettingsPage = () => {
     {
       title: "Users",
       icon: CircleUserRound,
-      url: "#"
+      url: "/admin/users"
     }
   ];
 

@@ -12,14 +12,19 @@ const NavigationLayout = () => {
   },
   {
     title: "Anomaly",
-    url: "#",
+    url: "/dashboard/anomaly",
     icon: TriangleAlert,
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "/dashboard/analytics",
     icon: ChartColumn,
   },
+  {
+    title: "Invoices",
+    url: "/dashboard/invoices",
+    icon: Inbox,
+  }
 ]
   return (
     <SidebarProvider >

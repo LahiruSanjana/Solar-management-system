@@ -12,7 +12,6 @@ const Solution = () => {
     ]
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-4 md:p-10">
-      {/* Image / Visual */}
       <div className="relative w-full lg:w-1/2">
         <img
           className="w-full h-auto rounded-3xl object-cover max-h-[420px] md:max-h-[540px] lg:max-h-[750px]"
@@ -24,8 +23,6 @@ const Solution = () => {
           <span className="text-white font-sans text-sm md:text-2xl font-semibold mt-1 md:mt-2">Aelora</span>
         </div>
       </div>
-
-      {/* Content */}
       <div className="w-full lg:w-1/2 bg-sky-600 rounded-3xl px-6 md:px-12 py-8 md:py-20 flex flex-col justify-between">
         <div>
           <div className="inline-flex items-center p-2 w-max bg-lime-400 rounded-xl gap-3">

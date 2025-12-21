@@ -37,7 +37,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-// ------------------ ZOD SCHEMA ------------------
 const formSchema = z.object({
     serialNumber: z.string().min(3, "Serial number is required"),
     capacity: z.string().min(1, "Capacity is required"),
@@ -49,7 +48,6 @@ const formSchema = z.object({
     }),
 });
 
-// ------------------ FORM COMPONENT ------------------
 export function SolarUnitAddForm() {
     const [date, setDate] = React.useState(null);
     const [open, setOpen] = React.useState(false);

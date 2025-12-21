@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import { SolarUnit } from "../infrastructure/entities/SolarUnit";
-import e, { Request, Response, NextFunction } from "express";
+import  { Request, Response, NextFunction } from "express";
 import { z } from 'zod';
 import { CreateSolarUnit, UpdateSolarUnit } from "../domen/dto/Solar-unit";
 import { NotFoundError, ValidationError } from "../domen/error/Error";
@@ -77,23 +76,44 @@ export const updatesolarUnitValidator = (req: Request, res: Response, next: Next
     }
     next();
 }
+export const updateSolarUnitValidator = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const result = UpdateSolarUnit.safeParse(req.body);
+  if (!result.success) {
+    throw new ValidationError(result.error.message);
+  }
+  next();
+};
+
 export const updatesolarUnit = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const data: z.infer<typeof UpdateSolarUnit> = req.body;
-    const { serialNumber, installationDate, capacity, status } = data;
     const solarUnit = await SolarUnit.findById(id);
-
     if (!solarUnit) {
         return res.status(404).json({ message: "Solar unit not found." })
     }
 
+    let userIdToUpdate = solarUnit.userId;
+    if(data.email){
+        const user = await User.findOne({ email: data.email });
+        if (user) {
+            userIdToUpdate = user._id;
+        }else{
+            return res.status(404).json({ message: "User with provided email not found." });
+        }
+    }
     const updatesolarUnit = await SolarUnit.findByIdAndUpdate(id, {
         serialNumber: data.serialNumber,
         installationDate: data.installationDate,
         capacity: data.capacity,
         status: data.status,
+        userId: userIdToUpdate,
     });
-    res.status(200).json(updatesolarUnit);
+    
+        res.status(200).json(updatesolarUnit);
 };
 export const deletesolarUnit = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -104,7 +124,7 @@ export const deletesolarUnit = async (req: Request, res: Response, next: NextFun
             return res.status(404).json({ message: "Solar unit not found." })
         }
         await SolarUnit.findByIdAndDelete(id);
-        res.status(204).send();
+        res.status(200).send();
     } catch (error) {
         next(error);
     }

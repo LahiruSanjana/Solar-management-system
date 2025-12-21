@@ -153,8 +153,6 @@ const SolarUnitAdd = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
-
-      {/* Hero Section */}
       <div className="relative w-full h-[280px] overflow-hidden">
         <img src={Solar} alt="Solar Panels" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-slate-900/80 flex items-center justify-center">
@@ -178,8 +176,6 @@ const SolarUnitAdd = () => {
           </div>
         </div>
       </div>
-
-      {/* Form Section */}
       <div className="max-w-2xl mx-auto px-4 py-12">
 
         {submitSuccess && (
@@ -199,8 +195,6 @@ const SolarUnitAdd = () => {
         <div className="bg-white rounded-2xl shadow-2xl p-8 border border-slate-200">
 
           <form onSubmit={handleSubmit} className="space-y-6">
-
-            {/* Serial Number */}
             <div>
               <Label>Serial Number *</Label>
               <Input
@@ -213,8 +207,6 @@ const SolarUnitAdd = () => {
               />
               {errors.serialNumber && <p className="text-red-600">{errors.serialNumber}</p>}
             </div>
-
-            {/* Capacity */}
             <div>
               <Label>Capacity (kW) *</Label>
               <Input
@@ -227,8 +219,6 @@ const SolarUnitAdd = () => {
               />
               {errors.capacity && <p className="text-red-600">{errors.capacity}</p>}
             </div>
-
-            {/* Installation Date */}
             <div>
               <Label>Installation Date *</Label>
               <Input
@@ -239,8 +229,6 @@ const SolarUnitAdd = () => {
               />
               {errors.installationDate && <p className="text-red-600">{errors.installationDate}</p>}
             </div>
-
-            {/* Status */}
             <div>
               <Label>Status</Label>
               <select
@@ -254,8 +242,6 @@ const SolarUnitAdd = () => {
                 <option value="MAINTENANCE">🟠 Maintenance</option>
               </select>
             </div>
-
-            {/* User ID */}
             <div>
               <Label>User ID *</Label>
               <Input
@@ -267,18 +253,14 @@ const SolarUnitAdd = () => {
               />
               {errors.userId && <p className="text-red-600">{errors.userId}</p>}
             </div>
-
-            {/* Buttons */}
             <div className="flex gap-4 pt-6">
               <Button type="submit" disabled={isSubmitting} className="flex-1">
                 {isSubmitting ? "Adding..." : "Add Solar Unit"}
               </Button>
-
               <Button type="button" variant="outline" onClick={handleCancel} className="flex-1">
                 Cancel
               </Button>
             </div>
-
           </form>
         </div>
       </div>

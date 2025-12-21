@@ -12,15 +12,8 @@ const SolarUnitView = () => {
   const navigate = useNavigate();
   
   const { data: solarUnits, isLoading, isError, error } = useGetAllSolarUnitsQuery();
-  
-  
-  // Safely handle the data - check if it's an array
   const solarUnitsArray = Array.isArray(solarUnits) ? solarUnits : [];
   const solarUnit = solarUnitsArray.find(solarUnit => solarUnit._id === id);
-  console.log("Solar Unit ID from URL:", id);
-  console.log("Fetched Solar Units:", solarUnit?._id);
-  console.log("Viewing Solar Unit:", solarUnit);
-  console.log("All Solar Units:", solarUnitsArray);
 
   if (isLoading) {
     return (

@@ -20,6 +20,8 @@ import { format, isValid, parseISO } from "date-fns";
 import Datacard from "../../dashboard/Datacard";
 import Datachart from "../../dashboard/Datachart";
 import { useGetSolarUnitsByClerkIdQuery } from "@/lib/redux/Query";
+import SolarEnergyProduction from "@/page/home/SolarEnergyProduction";
+import Editdetails from "../Editdetails";
 
 const Viewpage = ({ solarUnit = {} }) => {
   const navigate = useNavigate();
@@ -34,11 +36,11 @@ const Viewpage = ({ solarUnit = {} }) => {
   };
 
   const { data: solarUnits, isLoading: isLoadingSolarUnit, isError: isErrorSolarUnit, error: errorSolarUnit } = useGetSolarUnitsByClerkIdQuery();
-  console.log("Viewpage SolarUnits:", solarUnits?._id);
+  console.log("Solar Units Data:", solarUnits);
   if (!solarUnits) {
     return (
       <div className="p-6 bg-gray-50 rounded-xl shadow animate-pulse mx-4 mt-4">
-        <div className="text-red-500 text-2xl mb-4">No solar units available</div>
+        <div className="text-red-500 text-2xl mb-4">No solaryyy available</div>
         <div className="h-4 w-48 bg-gray-300 rounded mb-3"></div>
         <div className="h-3 w-64 bg-gray-200 rounded mb-2"></div>
         <div className="h-3 w-56 bg-gray-200 rounded"></div>
@@ -80,7 +82,6 @@ const Viewpage = ({ solarUnit = {} }) => {
         };
     }
   };
-  console.log("Viewpage SolarUnit:", solarUnit);
   if (!solarUnit || !solarUnit._id) {
     return (
       <div className="p-6 bg-gray-50 rounded-xl shadow animate-pulse mx-4 mt-4">
@@ -140,6 +141,7 @@ const Viewpage = ({ solarUnit = {} }) => {
             <Button
               variant="ghost"
               className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold border bg-helios-primary text-white hover:bg-white"
+              onClick={() => navigate(`/admin/Editdetails/${solarUnit?._id}`)}
             >
               <Settings className="h-5 w-5 text-white" />
               <span>Edit Details</span>
@@ -239,7 +241,7 @@ const Viewpage = ({ solarUnit = {} }) => {
           </div>
 
           <div className="bg-white p-6 rounded-b-2xl shadow-md border border-slate-200">
-            <Datacard solarUnitId={solarUnit?._id} title="Last 7 Days Energy Production" />
+            <SolarEnergyProduction solarUnitId={solarUnit?._id}  />
             <div className="mt-6">
               <Datachart solarUnitId={solarUnit?._id} />
             </div>

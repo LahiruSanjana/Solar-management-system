@@ -3,6 +3,7 @@ import Datachart from "./Datachart";
 import { useGetSolarUnitsByClerkIdQuery } from "../../lib/redux/Query";
 import Weather from "./Weather";
 import { useUser } from "@clerk/clerk-react";
+import SolarEnergyProduction from "../home/SolarEnergyProduction";
 
 const DashboardPage = () => {
     const { user } = useUser();
@@ -31,9 +32,8 @@ const DashboardPage = () => {
             <h2 className="text-4xl font-bold text-black">{user?.firstName}'s Home</h2>
             <p className="text-base text-gray-600">Welcome back to your Solar Energy Dashboard.</p>
             <Weather />
-            <Datacard
+            <SolarEnergyProduction
                 solarUnitId={solarUnits._id}
-                title="Last 7 Days Energy Production"
             />
             <Datachart
                 solarUnitId={solarUnits._id}

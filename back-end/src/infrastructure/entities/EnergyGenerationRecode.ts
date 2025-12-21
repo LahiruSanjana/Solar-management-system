@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const energyGenerationRecordSchema = new mongoose.Schema({
   solarUnitId: { 
-    type: mongoose.Schema.Types.ObjectId,   // reference to SolarUnit
+    type: mongoose.Schema.Types.ObjectId,  
     ref: "SolarUnit", 
     required: true 
   },
@@ -12,8 +12,14 @@ const energyGenerationRecordSchema = new mongoose.Schema({
   },
   timestamp: { 
     type: Date, 
-    default: Date.now   // auto assigns when record created
-  }
+    default: Date.now 
+  },
+  intervalHours: {
+    type: Number,
+    default: 2,
+    min: 0.1,
+    max: 24,
+  },
 });
 
 export const EnergyGenerationRecord = mongoose.model(

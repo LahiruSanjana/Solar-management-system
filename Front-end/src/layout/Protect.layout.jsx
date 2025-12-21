@@ -6,7 +6,7 @@ const ProtectLayout = () => {
     const { isSignedIn, isLoaded, user } = useUser();
 
     if (!isLoaded) {
-    return null; // or a loading spinner
+    return null; 
   }
     if (!isSignedIn) {
     return <Navigate to="/sign-in" />;

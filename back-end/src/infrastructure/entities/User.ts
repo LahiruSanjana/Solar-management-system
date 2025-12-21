@@ -3,6 +3,7 @@ import { resolve } from "path";
 
 const userSchema = new mongoose.Schema({
    firstname: {
+    type:String,
   },
   lastname: {
     type: String,
@@ -17,6 +18,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
+  },
+  phoneNo:{
+    type:String,
   },
   clerkUserId: {
     type: String,

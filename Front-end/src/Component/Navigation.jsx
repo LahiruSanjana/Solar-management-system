@@ -117,8 +117,6 @@ const Navigation = () => {
           </div>
         </SignedOut>
       </div>
-
-      {/* Mobile: hamburger + user/avatar */}
       <div className="flex items-center md:hidden gap-3">
         <SignedIn>
           <UserButton

@@ -44,7 +44,6 @@ const Maindashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8 rounded-lg">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg">
@@ -58,10 +57,7 @@ const Maindashboard = () => {
             </div>
           </div>
         </div>
-
-        {/* Stats Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {/* Total Systems Card */}
           <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-slate-200 hover:border-blue-300 group">
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-md group-hover:scale-110 transition-transform">
@@ -77,16 +73,11 @@ const Maindashboard = () => {
               <p className="text-xs text-slate-500 mt-2">Active solar installations</p>
             </div>
           </div>
-
-          {/* Chart Card - Spans 2 columns */}
           <div className="md:col-span-1 lg:col-span-2">
             <UsersStatechart />
           </div>
         </div>
-
-        {/* Action Section */}
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
-          {/* Quick Stats Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-slate-200">
             <div className="text-center">
               <p className="text-2xl font-bold text-slate-800">{solarUnitSum?.totalSolarUnits || 0}</p>

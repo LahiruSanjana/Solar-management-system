@@ -16,6 +16,13 @@ import Admindashboard from './page/admin/Admindashboard.jsx';
 import SolarUnitAdd from './page/admin/SolarUnitAdd';
 import View from './page/admin/View';
 import SettingsPage from './page/admin/SettingsPage';
+import UserDetails from './page/admin/components/user/Userdetails';
+import Editdetails from './page/admin/Editdetails';
+import DashboardAnalytics from './page/dashboard/DashboardAnalytics';
+import Anomaly from './page/dashboard/Anomaly';
+import InvoicesPage from './page/invoices/invoices.page.jsx';
+import PaymentPage from './page/invoices/payment.page.jsx';
+import PaymentCompletePage from './page/invoices/complete.page';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -39,12 +46,19 @@ function App() {
               <Route element={<ProtectLayout />}>
                 <Route element={<Dashboard />} >
                   <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/dashboard/analytics" element={<DashboardAnalytics />} />
+                  <Route path="/dashboard/anomaly" element={<Anomaly />} />
+                  <Route path="/dashboard/invoices" element={<InvoicesPage />} />
+                  <Route path="/dashboard/invoices/:id/pay" element={<PaymentPage />} />
+                  <Route path="/dashboard/invoices/complete" element={<PaymentCompletePage />} />
                 </Route>
                 <Route element={<AuthorizedLayout />}>
                   <Route path="/admin" element={<Admindashboard />} />
                   <Route path="/admin/solar-units" element={<SolarUnitAdd/>} />
                   <Route path="/admin/solar-units/view/:id" element={<View/>} />
                   <Route path="/admin/settings" element={<SettingsPage/>} />
+                  <Route path="/admin/user" element={<UserDetails/>} />
+                  <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
                 </Route>
               </Route>
             </Route>

@@ -1,5 +1,5 @@
 import { useGetEnvironmentConditionQuery } from "../../lib/redux/Weather";
-import { Wind, Droplet, Thermometer,ThermometerSun } from "lucide-react";
+import { Wind, Droplet, Thermometer,ThermometerSun,Cloudy } from "lucide-react";
 import Enviromentcondition from "./Enviromentcondition.jpg";
 
 const Weather = () => {
@@ -16,25 +16,20 @@ const Weather = () => {
 
     if (envLoading) return <div>Loading.....</div>;
     if (envIsError) return <div>Error: {envError?.toString()}</div>;
+    console.log("Environment Condition Data:", environmentCondition);
 
     return (
         <div className="w-2/3 max-w-screen-lg mx-auto p-4 mt-4 relative">
-            {/* Background image */}
             <img
                 src={Enviromentcondition}
                 alt="Environment Condition"
                 className="w-full h-64 sm:h-48 md:h-56 lg:h-[320px] object-cover rounded-lg shadow-md brightness-50"
             />
-
-            {/* Overlay container */}
             <div className="absolute inset-0 flex flex-col justify-between p-4">
-                {/* Header */}
                 <div className="bg-white bg-opacity-30 p-3 rounded-t-md shadow-md flex flex-row gap-4">
                     <ThermometerSun className="w-6 h-6 text-white mb-2 flex justify-center items-center" />
                     <h3 className="text-2xl font-semibold text-white">Weather Conditions</h3>
                 </div>
-
-                {/* Grid of weather info */}
                 <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 p-4">
                     {weatherData.map((item) => (
                         <div

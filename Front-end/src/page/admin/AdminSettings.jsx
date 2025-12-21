@@ -32,30 +32,21 @@ const AdminSettings = () => {
   const { user } = useUser();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [settings, setSettings] = useState({
-    // General Settings
     siteName: "Solar Energy Management System",
     language: "en",
     timezone: "UTC",
     dateFormat: "MM/DD/YYYY",
-    
-    // Notification Settings
     emailNotifications: true,
     systemAlerts: true,
     maintenanceAlerts: true,
     performanceAlerts: true,
     notificationEmail: user?.emailAddresses[0]?.emailAddress || "",
-    
-    // System Settings
     dataRetention: "365",
     backupFrequency: "daily",
     autoBackup: true,
-    
-    // Energy Threshold Settings
     lowEnergyThreshold: "20",
     highEnergyThreshold: "90",
     alertThreshold: "15",
-    
-    // Security Settings
     sessionTimeout: "30",
     twoFactorAuth: false,
     passwordExpiry: "90",
@@ -74,8 +65,6 @@ const AdminSettings = () => {
   const handleSaveSettings = async () => {
     setIsSaving(true);
     setSaveMessage("");
-    
-    // Simulate API call
     setTimeout(() => {
       setIsSaving(false);
       setSaveMessage("Settings saved successfully!");
@@ -85,7 +74,6 @@ const AdminSettings = () => {
 
   const handleResetSettings = () => {
     if (window.confirm("Are you sure you want to reset all settings to default?")) {
-      // Reset to default values
       setSettings({
         siteName: "Solar Energy Management System",
         language: "en",

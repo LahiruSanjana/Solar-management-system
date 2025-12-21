@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getAllSolarUnitsById } from '../api/Solar-unit';
 
+
 const baseUrl = 'http://localhost:8000/api';
 
 export const api = createApi({
@@ -24,6 +25,7 @@ export const api = createApi({
     }
   }),
 
+  tagTypes: ['SolarUnitList'],
   endpoints: (builder) => ({
     getEnergyGenerationRecords: builder.query({
       query: ({ id, groupBy, limit }) =>
@@ -57,6 +59,43 @@ export const api = createApi({
     getSolarUnitById: builder.query({
       query: (id) => `solar-units/${id}`,
     }),
+    getAllUsers:builder.query({
+      query: () => `users/`,
+    }),
+    deleteSolarUnit: builder.mutation({
+      query: (id) => ({
+        url: `solar-units/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
+    }),
+    updateSolarUnit: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `solar-units/${id}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
+    }),
+    createPaymentSession: builder.mutation({
+      query: (body) => ({
+        url: `payments/create-checkout-session`,
+        method: 'POST',
+        body,
+      }),
+    }),
+    getSessionStatus: builder.query({
+      query: (sessionId) => `payments/session-status?sessionId=${sessionId}`,
+    }),
+    getInvoiceById: builder.query({
+      query: (id) => `invoices/${id}`,
+    }),
+    getAllInvoices: builder.query({
+      query: () => `invoices/`,
+    }),
+    getMyinvoices: builder.query({
+      query: () => `invoices/`,
+    }),
   }),
 });
 
@@ -68,5 +107,13 @@ export const {
   useGetAllSolarUnitsSumQuery,
   useGetAllSolarUnitsQuery,
   useCreateSolarUnitMutation,
-  useGetSolarUnitByIdQuery
+  useGetSolarUnitByIdQuery,
+  useGetAllUsersQuery,
+  useDeleteSolarUnitMutation,
+  useUpdateSolarUnitMutation,
+  useCreatePaymentSessionMutation,
+  useGetSessionStatusQuery,
+  useGetInvoiceByIdQuery,
+  useGetAllInvoicesQuery,
+  useGetMyinvoicesQuery,
 } = api;

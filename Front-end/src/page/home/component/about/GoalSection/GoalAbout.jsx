@@ -17,8 +17,6 @@ const GoalAbout = () => {
         { details: "Easy access to historical performance data.", iconColor: "text-black", textColor: "text-black" },
         { details: "Clear, actionable insights for better energy management.", iconColor: "text-black", textColor: "text-black" },
     ];
-
-    // get Clerk user inside the component
     const { isLoaded, user } = useUser();
     const displayName = isLoaded && user
         ? user.fullName || `${user.firstName || ""} ${user.lastName || ""}`.trim()
@@ -26,7 +24,6 @@ const GoalAbout = () => {
 
     return (
         <div className="flex flex-col md:flex-row justify-between items-start px-6 md:px-12 py-6 gap-8 md:gap-32">
-            {/* Left column: Goals / Needs / Profile */}
             <div className="w-full md:w-1/2 space-y-6">
                 <div>
                     <span className="font-sans font-bold text-2xl md:text-3xl">Goals:</span>
@@ -96,8 +93,6 @@ const GoalAbout = () => {
                     </div>
                 </SignedIn>
             </div>
-
-            {/* Right column: Image */}
             <div className="w-full md:w-1/2 relative inline-block">
                 <img
                     className="object-cover w-full h-64 md:h-[750px] rounded-3xl"

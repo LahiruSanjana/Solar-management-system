@@ -23,6 +23,7 @@ webhookRouter.post('/', express.raw({ type: 'application/json' }), async (req, r
             firstname: evt.data.first_name ,
             lastname: evt.data.last_name ,
             email: evt.data.email_addresses?.[0]?.email_address,
+            phoneNo: evt.data.phone_numbers?.[0]?.phone_number,
             clerkUserId: id
         });
     }

@@ -2,8 +2,11 @@ import EnergyCard from "./EnergyCard"
 const SolarEnergyProductionCards = (props) => {
     if(props.solarData.length===0){
         return(
-            <div className="flex justify-center items-center h-36"> 
-                <p className="text-gray-500 text-lg">No data available</p>
+             <div className="p-6 bg-gray-50 rounded-xl shadow animate-pulse mx-4 mt-4">
+                <div className="text-red-500 text-2xl mb-4">No data available</div>
+                <div className="h-4 w-48 bg-gray-300 rounded mb-3"></div>
+                <div className="h-3 w-64 bg-gray-200 rounded mb-2"></div>
+                <div className="h-3 w-56 bg-gray-200 rounded"></div>
             </div>
         ); 
     }

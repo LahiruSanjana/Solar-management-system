@@ -7,8 +7,6 @@ const AuthorizedLayout = () => {
    if (user?.publicMetadata.role !== 'admin') {
     return <Navigate to="/" />;
   }
-  console.log("AuthorizedLayout User:", user);
-  console.log("AuthorizedLayout User Role:", user?.publicMetadata.role);
   return (
     <div>
       <div className="fixed top-4 right-4 z-50 bg-helios-primary text-white px-6 py-3 rounded-lg shadow-lg">

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { User } from "./User";
 
 const solarUnitSchema = new mongoose.Schema({
     userId:{
@@ -22,7 +21,7 @@ const solarUnitSchema = new mongoose.Schema({
     status: { 
         type: String, 
         enum: ["ACTIVE", "INACTIVE", "MAINTENANCE"], 
-        default: "ACTIVE" 
+        default: "INACTIVE" 
     },
 });
 

@@ -52,10 +52,6 @@ const SolarEnergyProduction = ({ solarUnitId }) => {
             hasAnomaly: e1.hasAnomaly
         };
     }) : [];
-    
-    console.log(energyGenerationRecords);
-    
-    console.log(energyGenerationRecords);
 
     const energyGenerationRecordsFilteredData = energyGenerationRecords.filter(e1 => {
         if (selectTab === "all") {
@@ -80,7 +76,7 @@ const SolarEnergyProduction = ({ solarUnitId }) => {
     });
 
     return (
-        <section className="mx-20 px-20 py-10 bg-lime-100 rounded-xl">
+        <section className="mx-5 px-5 py-10 bg-lime-100 rounded-xl">
             <div className="mb-6">
                 <h2 className="mb-2 text-2xl font-bold text-gray-900">Solar Energy Production</h2>
                 <p className="text-base text-gray-600">Daily energy output for the past 7 days</p>

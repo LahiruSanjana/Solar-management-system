@@ -1,7 +1,8 @@
 import { AppSidebar } from "@/Component/Appslide";
-import {icons, LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound} from "lucide-react";
+import {icons, LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound, User} from "lucide-react";
 import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar";
 import Maindashboard from "./Maindashboard";
+import Userdetails from "./components/user/Userdetails";
 
 const Admindashboard = () => {
   const items = [
@@ -20,7 +21,7 @@ const Admindashboard = () => {
       {
       title: "Users",
       icon:CircleUserRound,
-      url: "#",
+      url: "admin/user",
       }
   ];
   return (
