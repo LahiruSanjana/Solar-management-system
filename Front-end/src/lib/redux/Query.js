@@ -2,8 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getAllSolarUnitsById } from '../api/Solar-unit';
 
 
-const baseUrl = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_BACKEND_URL}/api` 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+const baseUrl = backendUrl
+  ? `${backendUrl.startsWith('http') ? backendUrl : 'https://' + backendUrl}/api`
   : 'http://localhost:8000/api';
 
 export const api = createApi({
