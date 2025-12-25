@@ -17,13 +17,15 @@ import { handleStripeWebhook } from "./application/payment";
 const server=express();
 server.use(cors({
   origin: [
-    "http://localhost:5173", 
-    "https://fed-4-front-end-sanjanafernando.netlify.app" 
+    "http://localhost:5173",
+    "https://fed-4-front-end-sanjanafernando.netlify.app"
   ],
-  credentials: true, 
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+server.options("*", cors());
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
