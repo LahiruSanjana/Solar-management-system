@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getAllSolarUnitsById } from '../api/Solar-unit';
 
 
-const baseUrl = 'http://localhost:8000/api';
+const baseUrl = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/api` 
+  : 'http://localhost:8000/api';
 
 export const api = createApi({
   reducerPath: 'energyApi',
