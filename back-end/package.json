@@ -6,7 +6,7 @@
     "dev": "nodemon src/index.ts",
     "dev:ngrok": "ngrok start back-end --config=ngrok.yml",
     "seed": "ts-node src/infrastructure/seed.ts",
-    "build": "npm install && tsc",
+    "build": "tsc",
     "start": "node ./dist/index.js"
   },
   "author": "",
