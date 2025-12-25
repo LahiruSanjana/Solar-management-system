@@ -1,6 +1,6 @@
 import { useGetEnvironmentConditionQuery } from "../../lib/redux/Weather";
 import { Wind, Droplet, Thermometer,ThermometerSun,Cloudy } from "lucide-react";
-import Enviromentcondition from "./enviromentcondition.jpg";
+import Enviromentcondition from "../../assets/enviromentcondition.jpg";
 
 const Weather = () => {
     const weatherData = [
