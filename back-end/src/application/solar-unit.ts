@@ -54,6 +54,7 @@ export const getsolarUnitById = async (req: Request, res: Response, next: NextFu
         next(error);
     }
 }
+//get solar unit by clerk user id
 export const getSolarUnitByClerkId = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const auth=getAuth(req);
@@ -69,6 +70,7 @@ export const getSolarUnitByClerkId = async (req: Request, res: Response, next: N
         next(error);
     }
 }
+//validation for update solar unit
 export const updatesolarUnitValidator = (req: Request, res: Response, next: NextFunction) => {
     const result = UpdateSolarUnit.safeParse(req.body);
     if (!result.success) {
@@ -76,6 +78,7 @@ export const updatesolarUnitValidator = (req: Request, res: Response, next: Next
     }
     next();
 }
+//validation for update solar unit
 export const updateSolarUnitValidator = (
   req: Request,
   res: Response,
@@ -87,7 +90,7 @@ export const updateSolarUnitValidator = (
   }
   next();
 };
-
+//update solar unit
 export const updatesolarUnit = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const data: z.infer<typeof UpdateSolarUnit> = req.body;
@@ -115,6 +118,7 @@ export const updatesolarUnit = async (req: Request, res: Response, next: NextFun
     
         res.status(200).json(updatesolarUnit);
 };
+//delete solar unit
 export const deletesolarUnit = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
@@ -129,6 +133,7 @@ export const deletesolarUnit = async (req: Request, res: Response, next: NextFun
         next(error);
     }
 };
+//get solar unit status statistics
 export const getSolarStatusStats = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const stats = await SolarUnit.aggregate([
@@ -157,6 +162,7 @@ export const getSolarStatusStats = async (req: Request, res: Response, next: Nex
         next(error);
     }
 };
+//get total number of solar units
 export const getAllsolarUnitssum = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const solarunits = await SolarUnit.aggregate([
