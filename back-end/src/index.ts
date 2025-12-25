@@ -24,8 +24,6 @@ server.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
-server.options("*", cors());
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
