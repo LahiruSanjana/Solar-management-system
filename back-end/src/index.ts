@@ -14,16 +14,31 @@ import { startInvoiceScheduler } from "./application/background/generate-invoice
 import paymentRouter from "./api/payment";
 import { handleStripeWebhook } from "./application/payment";
 
-const server=express();
-server.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://fed-4-front-end-sanjanafernando.netlify.app"
-  ],
+const server = express();
+
+// CORS setup for both local dev and deployed Netlify frontend
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://fed-4-front-end-sanjanafernando.netlify.app"
+];
+
+const corsOptions: cors.CorsOptions = {
+  origin: allowedOrigins,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200
+};
+
+// Apply CORS early and short-circuit OPTIONS so auth middlewares never block preflight
+server.use(cors(corsOptions));
+server.options("*", cors(corsOptions));
+server.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
