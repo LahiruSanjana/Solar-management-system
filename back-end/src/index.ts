@@ -17,7 +17,7 @@ import { handleStripeWebhook } from "./application/payment";
 const server=express();
 server.use(cors({origin: "*"}));
 server.use(loggerMiddleware);
-const PORT=8000;
+const PORT=process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
 server.use("/api/webhooks", webhookRouter);
@@ -40,5 +40,5 @@ connectDB();
 startInvoiceScheduler();
 
 server.listen(PORT,()=>{
-    console.log(`Server is running ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 })
