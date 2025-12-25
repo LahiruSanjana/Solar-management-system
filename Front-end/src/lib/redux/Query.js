@@ -3,7 +3,7 @@ import { getAllSolarUnitsById } from '../api/Solar-unit';
 
 
 const baseUrl = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api` 
+  ? `${import.meta.env.VITE_BACKEND_URL}/api` 
   : 'http://localhost:8000/api';
 
 export const api = createApi({
