@@ -41,7 +41,10 @@ server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
-server.use("/api/webhooks", webhookRouter);
+server.use("/api/webhooks",
+  express.raw({ type: "application/json" }),
+  webhookRouter
+);
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // Clerk middleware should be early in the chain
