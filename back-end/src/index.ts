@@ -30,17 +30,26 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: 200
 };
 
-// Apply CORS early and short-circuit OPTIONS so auth middlewares never block preflight
+// --- FIX 1: Express 5 Compatibility ---
 server.use(cors(corsOptions));
-server.options("*", cors(corsOptions));
+// Changed "*" to "(.*)" because Express 5 crashes on "*"
+server.options("(.*)", cors(corsOptions)); 
+
 server.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     return res.sendStatus(204);
   }
   next();
 });
+
 server.use(loggerMiddleware);
-const PORT=process.env.PORT || 8000;
+const PORT = parseInt(process.env.PORT || "8000", 10);
+
+// --- FIX 2: Health Check Route ---
+// Railway needs a root route to check if the server is alive
+server.get("/", (req, res) => {
+  res.status(200).send("Solar API is running");
+});
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
 server.use("/api/webhooks", webhookRouter);
@@ -50,11 +59,11 @@ server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), ha
 server.use(clerkMiddleware());
 server.use(express.json());
 
-server.use("/api/solar-units",solarUnitRouter);
+server.use("/api/solar-units", solarUnitRouter);
 server.use("/api/energy-generation-records", energyGenerationRecordRouter);
-server.use("/api/users",userRouter)
-server.use("/api/invoices",invoiceRouter);
-server.use("/api/admin/invoices",adminInvoiceRouter);
+server.use("/api/users", userRouter);
+server.use("/api/invoices", invoiceRouter);
+server.use("/api/admin/invoices", adminInvoiceRouter);
 server.use("/api/payments", paymentRouter);
 
 server.use(globalErrorHandler);
@@ -62,6 +71,8 @@ server.use(globalErrorHandler);
 connectDB();
 startInvoiceScheduler();
 
-server.listen(PORT,()=>{
+// --- FIX 3: Bind to 0.0.0.0 ---
+// Required for Railway/Docker to expose the port externally
+server.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is running on port ${PORT}`);
-})
+});
