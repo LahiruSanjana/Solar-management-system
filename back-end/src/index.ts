@@ -69,9 +69,22 @@ const startServer = async () => {
     startInvoiceScheduler();
 
     const PORT = process.env.PORT || 8000;
-    server.listen(Number(PORT), "0.0.0.0", () => {
+    const app = server.listen(Number(PORT), "0.0.0.0", () => {
       console.log(`Server is running on port ${PORT}`);
     });
+
+    // Graceful shutdown
+    const shutdown = () => {
+      console.log('Received kill signal, shutting down gracefully');
+      app.close(() => {
+        console.log('Closed out remaining connections');
+        process.exit(0);
+      });
+    };
+
+    process.on('SIGTERM', shutdown);
+    process.on('SIGINT', shutdown);
+
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
