@@ -36,7 +36,6 @@ const corsOptions: cors.CorsOptions = {
 };
 
 server.use(cors(corsOptions));
-server.options("*", cors(corsOptions));
 
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
