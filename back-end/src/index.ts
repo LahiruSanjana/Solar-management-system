@@ -44,6 +44,7 @@ const PORT=process.env.PORT || 8000;
 server.use("/api/webhooks",
   webhookRouter
 );
+console.log("Webhook router mounted at /api/webhooks");
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // Clerk middleware should be early in the chain
