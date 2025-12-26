@@ -38,7 +38,9 @@ const corsOptions: cors.CorsOptions = {
 server.use(cors(corsOptions));
 
 server.use(loggerMiddleware);
+//testing....
 const PORT = process.env.PORT || 8000;
+console.log("PORT:", PORT);
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
 server.use("/api/webhooks", webhookRouter);
