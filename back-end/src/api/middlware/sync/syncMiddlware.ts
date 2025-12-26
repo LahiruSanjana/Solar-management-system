@@ -28,7 +28,7 @@ const syncMiddleware = async (req: Request, res: Response, next: NextFunction) =
     }
 
     const dataApiRecords = await fetch(
-        `http://localhost:8001/api/energy-generation-records/solar-unit/${solarUnits[0].serialNumber}`,
+        `https://fed-4-data-api-production.up.railway.app/api/energy-generation-records/solar-unit/${solarUnits[0].serialNumber}`,
     );
     if (!dataApiRecords.ok) {
         throw new Error("Failed to fetch data from Data API");
