@@ -23,22 +23,25 @@ const allowedOrigins = [
 ];
 
 const corsOptions: cors.CorsOptions = {
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      console.log("Request blocked due to CORS policy");
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 200
 };
 
-// Apply CORS early and short-circuit OPTIONS so auth middlewares never block preflight
+// Apply CORS early
 server.use(cors(corsOptions));
 server.options("*", cors(corsOptions));
-server.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
+
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
