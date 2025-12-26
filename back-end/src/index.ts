@@ -38,9 +38,11 @@ const corsOptions: cors.CorsOptions = {
 server.use(cors(corsOptions));
 
 server.use(loggerMiddleware);
-//testing....
-const PORT = process.env.PORT || 8000;
-console.log("PORT:", PORT);
+
+// Health check endpoint
+server.get("/", (req, res) => {
+  res.status(200).send("Solar Management System Backend is running");
+});
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
 server.use("/api/webhooks", webhookRouter);
@@ -61,9 +63,19 @@ server.use("/api/payments", paymentRouter);
 
 server.use(globalErrorHandler);
 
-connectDB();
-startInvoiceScheduler();
+const startServer = async () => {
+  try {
+    await connectDB();
+    startInvoiceScheduler();
 
-server.listen(Number(PORT), "0.0.0.0", () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+    const PORT = process.env.PORT || 8000;
+    server.listen(Number(PORT), "0.0.0.0", () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
