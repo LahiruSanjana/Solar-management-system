@@ -42,7 +42,6 @@ const PORT=process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
 server.use("/api/webhooks",
-  express.raw({ type: "application/json" }),
   webhookRouter
 );
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
