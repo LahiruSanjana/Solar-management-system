@@ -1,5 +1,5 @@
 import express from "express";
-import "dotenv/config";
+//import "dotenv/config";
 import solarUnitRouter from "./api/solar-unit";
 import { connectDB } from "./infrastructure/db";
 import energyGenerationRecordRouter from "./api/EnergyGenerationRecode";
