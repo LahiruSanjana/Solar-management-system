@@ -6,6 +6,10 @@ import { WebhookEvent } from '@clerk/express'; // Types import (Optional)
 const webhookRouter = express.Router();
 
 webhookRouter.post('/', express.raw({ type: 'application/json' }), async (req, res) => {
+  console.log("🔔 Incoming Clerk webhook received");
+  console.log("Headers:", req.headers);
+  console.log("Body:", req.body);
+  console.log("Raw Body:", req.body.toString());
   try {
     const SIGNING_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
