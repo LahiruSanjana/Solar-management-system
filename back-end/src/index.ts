@@ -16,35 +16,34 @@ import { handleStripeWebhook } from "./application/payment";
 
 const server = express();
 
+// CORS setup for both local dev and deployed Netlify frontend
 const allowedOrigins = [
   "http://localhost:5173",
   "https://fed-4-front-end-sanjanafernando.netlify.app"
 ];
 
 const corsOptions: cors.CorsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: allowedOrigins,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 200
 };
 
+// Apply CORS early and short-circuit OPTIONS so auth middlewares never block preflight
 server.use(cors(corsOptions));
-
+server.options("*", cors(corsOptions));
+server.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
 server.use(loggerMiddleware);
 const PORT=process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
-server.use("/api/webhooks",
-  webhookRouter
-);
-console.log("Webhook router mounted at /api/webhooks");
+server.use("/api/webhooks", webhookRouter);
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // Clerk middleware should be early in the chain
