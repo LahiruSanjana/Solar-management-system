@@ -16,7 +16,6 @@ import { handleStripeWebhook } from "./application/payment";
 
 const server = express();
 
-// CORS setup for both local dev and deployed Netlify frontend
 const allowedOrigins = [
   "http://localhost:5173",
   "https://fed-4-front-end-sanjanafernando.netlify.app"
@@ -24,11 +23,9 @@ const allowedOrigins = [
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.log("Blocked by CORS:", origin);
-      console.log("Request blocked due to CORS policy");
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -38,7 +35,6 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: 200
 };
 
-// Apply CORS early
 server.use(cors(corsOptions));
 server.options("*", cors(corsOptions));
 
