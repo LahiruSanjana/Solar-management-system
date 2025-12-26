@@ -1,7 +1,7 @@
 import express from "express";
-//import "dotenv/config";
+import "dotenv/config";
 import solarUnitRouter from "./api/solar-unit";
-import { connectDB } from "./infrastructure/db";
+import {connectDB} from "./infrastructure/db";
 import energyGenerationRecordRouter from "./api/EnergyGenerationRecode";
 import loggerMiddleware from "./api/middlware/Logger-middlware";
 import globalErrorHandler from "./api/middlware/global-error-handling-middleware";
@@ -38,57 +38,31 @@ const corsOptions: cors.CorsOptions = {
 server.use(cors(corsOptions));
 
 server.use(loggerMiddleware);
-
-// Health check endpoint
-server.get("/", (req, res) => {
-  res.status(200).send("Solar Management System Backend is running");
-});
+const PORT=process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
-server.use("/api/webhooks", webhookRouter);
+server.use("/api/webhooks",
+  webhookRouter
+);
 console.log("Webhook router mounted at /api/webhooks");
-
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // Clerk middleware should be early in the chain
 server.use(clerkMiddleware());
 server.use(express.json());
 
-server.use("/api/solar-units", solarUnitRouter);
+server.use("/api/solar-units",solarUnitRouter);
 server.use("/api/energy-generation-records", energyGenerationRecordRouter);
-server.use("/api/users", userRouter);
-server.use("/api/invoices", invoiceRouter);
-server.use("/api/admin/invoices", adminInvoiceRouter);
+server.use("/api/users",userRouter)
+server.use("/api/invoices",invoiceRouter);
+server.use("/api/admin/invoices",adminInvoiceRouter);
 server.use("/api/payments", paymentRouter);
 
 server.use(globalErrorHandler);
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    startInvoiceScheduler();
+connectDB();
+startInvoiceScheduler();
 
-    const PORT = process.env.PORT || 8000;
-    const app = server.listen(Number(PORT), "0.0.0.0", () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-
-    // Graceful shutdown
-    const shutdown = () => {
-      console.log('Received kill signal, shutting down gracefully');
-      app.close(() => {
-        console.log('Closed out remaining connections');
-        process.exit(0);
-      });
-    };
-
-    process.on('SIGTERM', shutdown);
-    process.on('SIGINT', shutdown);
-
-  } catch (error) {
-    console.error("Failed to start server:", error);
-    process.exit(1);
-  }
-};
-
-startServer();
+server.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT}`);
+})
