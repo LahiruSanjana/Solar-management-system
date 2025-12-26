@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import solarUnitRouter from "./api/solar-unit";
-import {connectDB} from "./infrastructure/db";
+import { connectDB } from "./infrastructure/db";
 import energyGenerationRecordRouter from "./api/EnergyGenerationRecode";
 import loggerMiddleware from "./api/middlware/Logger-middlware";
 import globalErrorHandler from "./api/middlware/global-error-handling-middleware";
@@ -38,24 +38,23 @@ const corsOptions: cors.CorsOptions = {
 server.use(cors(corsOptions));
 
 server.use(loggerMiddleware);
-const PORT=process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
 // Webhook must come before clerkMiddleware and express.json() for raw body access
-server.use("/api/webhooks",
-  webhookRouter
-);
+server.use("/api/webhooks", webhookRouter);
 console.log("Webhook router mounted at /api/webhooks");
+
 server.post("/api/stripe/webhook", express.raw({ type: "application/json" }), handleStripeWebhook);
 
 // Clerk middleware should be early in the chain
 server.use(clerkMiddleware());
 server.use(express.json());
 
-server.use("/api/solar-units",solarUnitRouter);
+server.use("/api/solar-units", solarUnitRouter);
 server.use("/api/energy-generation-records", energyGenerationRecordRouter);
-server.use("/api/users",userRouter)
-server.use("/api/invoices",invoiceRouter);
-server.use("/api/admin/invoices",adminInvoiceRouter);
+server.use("/api/users", userRouter);
+server.use("/api/invoices", invoiceRouter);
+server.use("/api/admin/invoices", adminInvoiceRouter);
 server.use("/api/payments", paymentRouter);
 
 server.use(globalErrorHandler);
@@ -63,6 +62,6 @@ server.use(globalErrorHandler);
 connectDB();
 startInvoiceScheduler();
 
-server.listen(PORT,()=>{
+server.listen(Number(PORT), "0.0.0.0", () => {
     console.log(`Server is running on port ${PORT}`);
-})
+});
