@@ -16,7 +16,6 @@ import { handleStripeWebhook } from "./application/payment";
 
 const server = express();
 
-// CORS setup for both local dev and deployed Netlify frontend
 const allowedOrigins = [
   "http://localhost:5173",
   "https://fed-4-front-end-sanjanafernando.netlify.app"
@@ -30,13 +29,16 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: 200
 };
 
-// --- FIX 1: Express 5 Compatibility ---
+// --- FIX 1: CORS Setup ---
+// We apply cors() globally. It sets the headers for ALL methods (including OPTIONS).
 server.use(cors(corsOptions));
-// Changed "*" to "(.*)" because Express 5 crashes on "*"
-server.options("(.*)", cors(corsOptions)); 
 
+// We REMOVED the specific `server.options(...)` line because it crashes Express 5.
+// Instead, we rely on this manual middleware to capture OPTIONS requests 
+// and send the 200/204 status that the browser is waiting for.
 server.use((req, res, next) => {
   if (req.method === "OPTIONS") {
+    // Headers are already set by the cors() middleware above
     return res.sendStatus(204);
   }
   next();
