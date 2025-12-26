@@ -66,7 +66,7 @@ server.use(globalErrorHandler);
 const startServer = async () => {
   try {
     await connectDB();
-    startInvoiceScheduler();
+    //startInvoiceScheduler();
 
     const PORT = process.env.PORT || 8000;
     const app = server.listen(Number(PORT), "0.0.0.0", () => {
