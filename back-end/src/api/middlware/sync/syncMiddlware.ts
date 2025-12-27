@@ -57,7 +57,7 @@ const syncMiddleware = async (
     // Prefer INTERNAL Railway URL if possible
     const DATA_API_URL =
       process.env.DATA_API_URL ||
-      `https://fed-4-data-api-production.up.railway.app/api/energy-generation-records/solar-unit/${serialNumber}`;
+      `https://fed-4-data-api-production-b9a0.up.railway.app/api/energy-generation-records/solar-unit/${serialNumber}`;
 
     // 🚑 5. Fetch with timeout + error handling
     let response;

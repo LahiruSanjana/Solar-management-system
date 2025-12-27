@@ -24,7 +24,7 @@ export const SyncEnergyGenerationRecord = async (
             const lastSyncedRecord = await EnergyGenerationRecord
                 .findOne({ solarUnitId: solarUnit._id })
                 .sort({ timestamp: -1 });
-            const baseUrl = `https://fed-4-data-api-production.up.railway.app/api/energy-generation-records/solar-unit/${solarUnit.serialNumber}`;
+            const baseUrl = `https://fed-4-data-api-production-b9a0.up.railway.app/api/energy-generation-records/solar-unit/${solarUnit.serialNumber}`;
             const url = new URL(baseUrl);
             if (lastSyncedRecord?.timestamp) {
                 url.searchParams.append(
