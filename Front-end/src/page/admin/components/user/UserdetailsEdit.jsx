@@ -118,7 +118,7 @@ const UserdetailsEdit = ({ initialData = emptyUser, onSubmit, onCancel }) => {
   };
 
   return (
-    <Card className="w-full max-w-3xl mx-auto shadow-lg">
+    <Card className="w-full max-w-3xl mx-auto shadow-lg bg-slate-300 mt-4">
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-between">
             <div>
@@ -262,22 +262,14 @@ const UserdetailsEdit = ({ initialData = emptyUser, onSubmit, onCancel }) => {
                                 <span>Staff</span>
                             </div>
                         </SelectItem>
+                        <SelectItem value="user">
+                            <div className="flex items-center gap-2">
+                                <Fingerprint className="h-4 w-4 text-secondary" />
+                                <span>User</span>
+                            </div>
+                        </SelectItem>
                     </SelectContent>
                     </Select>
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="userId">Clerk User ID <span className="text-xs text-muted-foreground font-normal">(Optional)</span></Label>
-                    <div className="relative">
-                        <Fingerprint className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                        id="userId"
-                        name="userId"
-                        value={form.userId || ""}
-                        onChange={handleChange}
-                        className="pl-9 font-mono text-sm"
-                        placeholder="user_2..."
-                        />
-                    </div>
                 </div>
             </div>
           </div>
