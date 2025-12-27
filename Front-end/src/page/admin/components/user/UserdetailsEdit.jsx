@@ -55,7 +55,26 @@ const emptyUser = {
 const UserdetailsEdit = ({ initialData = emptyUser, onSubmit, onCancel }) => {
   const [form, setForm] = useState({ ...emptyUser, ...initialData });
   const [error, setError] = useState("");
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updateUser, { isLoading }, isError] = useUpdateUserMutation();
+
+  if (isError) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-xl font-semibold text-gray-900">Error loading user data</p>
+          <p className="text-gray-600 mt-2">Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;

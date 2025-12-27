@@ -17,6 +17,7 @@ export const getAllUsers=async(
         next(error);
     }
 }
+
 export const updateUserValidator=(
     req:Request,
     res:Response,

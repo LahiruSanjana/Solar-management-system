@@ -23,6 +23,7 @@ import Anomaly from './page/dashboard/Anomaly';
 import InvoicesPage from './page/invoices/invoices.page.jsx';
 import PaymentPage from './page/invoices/payment.page.jsx';
 import PaymentCompletePage from './page/invoices/complete.page';
+import UserdetailsEdit from './page/admin/components/user/UserdetailsEdit.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -59,7 +60,7 @@ function App() {
                   <Route path="/admin/settings" element={<SettingsPage/>} />
                   <Route path="/admin/user" element={<UserDetails/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
-                  <Route path="/admin/user/edit/:id" element={<Editdetails/>} />
+                  <Route path="/admin/user/edit/:id" element={<UserdetailsEdit/>} />
                 </Route>
               </Route>
             </Route>
