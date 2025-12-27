@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
   phoneNo:{
     type:String,
   },
+  address:{
+    type:String,
+  },
   clerkUserId: {
     type: String,
     required: true,

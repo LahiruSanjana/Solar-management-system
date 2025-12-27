@@ -59,6 +59,7 @@ function App() {
                   <Route path="/admin/settings" element={<SettingsPage/>} />
                   <Route path="/admin/user" element={<UserDetails/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
+                  <Route path="/admin/user/edit/:id" element={<Editdetails/>} />
                 </Route>
               </Route>
             </Route>

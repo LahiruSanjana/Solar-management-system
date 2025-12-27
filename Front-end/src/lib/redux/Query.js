@@ -66,6 +66,7 @@ export const api = createApi({
     getAllUsers:builder.query({
       query: () => `users/`,
     }),
+
     deleteSolarUnit: builder.mutation({
       query: (id) => ({
         url: `solar-units/${id}`,
@@ -100,6 +101,19 @@ export const api = createApi({
     getMyinvoices: builder.query({
       query: () => `invoices/`,
     }),
+    updateUser: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `users/${id}`,
+        method: 'PUT',
+        body,
+      }),
+    }),
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE'
+      }),
+    }),
   }),
 });
 
@@ -120,4 +134,6 @@ export const {
   useGetInvoiceByIdQuery,
   useGetAllInvoicesQuery,
   useGetMyinvoicesQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
 } = api;
