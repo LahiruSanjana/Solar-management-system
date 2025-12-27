@@ -11,8 +11,10 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
+
 const UserDetailsTable = () => {
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
     const{data:users,isLoading,isError}=useGetAllUsersQuery();
     if (isLoading) {
         return (
@@ -100,10 +102,12 @@ const UserDetailsTable = () => {
                                        {user.email}
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <button className="text-white bg-blue-600 hover:underline font-medium">
+                                        <button 
+                                            onClick={() => navigate(`/admin/user/edit/${user._id}`)}
+                                        className="text-white bg-blue-600 hover:underline py-2 px-4 rounded-md font-semibold">
                                             Edit
                                         </button>
-                                        <button className="text-white bg-red-600 hover:underline font-medium ml-4">
+                                        <button className="text-white bg-red-600 hover:underline font-semibold ml-4 py-2 px-4 rounded-md">
                                             Delete
                                         </button>
                                     </TableCell>
