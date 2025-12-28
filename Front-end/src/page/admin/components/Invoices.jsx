@@ -9,7 +9,12 @@ import {
     TableRow,
 } from "../../../components/ui/table"
 import { Input } from "../../../components/ui/input"
-import Tab from '@/page/home/Tab';
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "../../../components/ui/card"
 
 const Invioices = () => {
 
@@ -32,9 +37,30 @@ const Invioices = () => {
     return (
         <div className="space-y-4 p-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <Tab title="All Invoices" value={Invoices?.length || 0} />
-                <Tab title="Paid Invoices" value={Invoices?.filter(inv => inv.paymentStatus === "PAID").length || 0} />
-                <Tab title="Unpaid Invoices" value={Invoices?.filter(inv => inv.paymentStatus === "UNPAID").length || 0} />
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">All Invoices</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{Invoices?.length || 0}</div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Paid Invoices</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{Invoices?.filter(inv => inv.paymentStatus === "PAID").length || 0}</div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Unpaid Invoices</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{Invoices?.filter(inv => inv.paymentStatus === "UNPAID").length || 0}</div>
+                    </CardContent>
+                </Card>
             </div>
             <div className="flex items-center py-4">
                 <Input
