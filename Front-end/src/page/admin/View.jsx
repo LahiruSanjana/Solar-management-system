@@ -1,6 +1,6 @@
 import SolarUnitView from "./components/SolarUnitView";
 import { AppSidebar } from "@/Component/Appslide";
-import { LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound} from "lucide-react";
+import { LayoutDashboard ,MessageSquareWarning,Settings,CircleUserRound,Receipt} from "lucide-react";
 import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar";
 const View = () => {
 
@@ -10,17 +10,17 @@ const View = () => {
       icon:LayoutDashboard,
       url:"/admin"},
     {
-      title: "Alert", 
-      icon:MessageSquareWarning,
-      url: "#"},
+      title: "Users", 
+      icon:CircleUserRound,
+      url: "admin/user"},
     {
       title: "Settings",
       icon:Settings,
       url: "/admin/settings",},
       {
-      title: "Users",
-      icon:CircleUserRound,
-      url: "#",
+      title: "Invoices",
+      icon:Receipt,
+      url: "admin/Invoices",
       }
   ];
     return (

@@ -114,7 +114,6 @@ const Invioices = () => {
                             <TableHead className="font-semibold text-slate-700 text-center">Energy (kWh)</TableHead>
                             <TableHead className="font-semibold text-slate-700">Paid At</TableHead>
                             <TableHead className="font-semibold text-slate-700 text-center">Status</TableHead>
-                            <TableHead className="font-semibold text-slate-700 text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -152,17 +151,6 @@ const Invioices = () => {
                                             {invoice.paymentStatus === "PAID" && <CircleCheck className="w-3 h-3 mr-1" />}
                                             {invoice.paymentStatus}
                                         </span>
-                                    </TableCell>
-
-                                    <TableCell className="text-right">
-                                        <div className="flex justify-end gap-2">
-                                            <button className="p-2 hover:bg-slate-100 rounded-full text-slate-500 hover:text-sky-600 transition-colors">
-                                                <Eye className="w-4 h-4" />
-                                            </button>
-                                            <button className="p-2 hover:bg-slate-100 rounded-full text-slate-500 hover:text-sky-600 transition-colors">
-                                                <Download className="w-4 h-4" />
-                                            </button>
-                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))

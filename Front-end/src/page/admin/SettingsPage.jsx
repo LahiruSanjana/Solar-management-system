@@ -1,30 +1,27 @@
 import { AppSidebar } from "@/Component/Appslide";
-import { LayoutDashboard, MessageSquareWarning, Settings, CircleUserRound } from "lucide-react";
+import { LayoutDashboard, MessageSquareWarning, Settings, CircleUserRound,Receipt} from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AdminSettings from "./AdminSettings";
 
 const SettingsPage = () => {
   const items = [
     {
-      title: "Dashboard",
-      icon: LayoutDashboard,
-      url: "/admin"
-    },
+      title:"Dashboard",
+      icon:LayoutDashboard,
+      url:"/admin"},
     {
-      title: "Alert",
-      icon: MessageSquareWarning,
-      url: "#"
-    },
+      title: "Users", 
+      icon:CircleUserRound,
+      url: "admin/user"},
     {
       title: "Settings",
-      icon: Settings,
-      url: "/admin/settings"
-    },
-    {
-      title: "Users",
-      icon: CircleUserRound,
-      url: "/admin/users"
-    }
+      icon:Settings,
+      url: "/admin/settings",},
+      {
+      title: "Invoices",
+      icon:Receipt,
+      url: "admin/Invoices",
+      }
   ];
 
   return (
