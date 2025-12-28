@@ -18,7 +18,7 @@ const server = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://fed-4-front-end-sanjanafernando.netlify.app"
+  "https://fed-4-helios-energy-sanjanafernando.netlify.app"
 ];
 
 const corsOptions: cors.CorsOptions = {
