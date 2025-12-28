@@ -25,7 +25,6 @@ const DashboardPage = () => {
     if (isErrorSolarUnit) {
         return <div>Error loading Solar Units: {errorSolarUnit.message}</div>;
     }
-    console.log("Solar Units:", solarUnits);
 
     return (
         <div className="ml-8 mt-4 bg-slate-50 pb-8">

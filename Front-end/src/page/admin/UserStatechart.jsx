@@ -35,7 +35,7 @@ export default function ChartPieLegend() {
     { status: "active", value: data.active || 0, fill: chartConfig.active.color },
     { status: "inactive", value: data.inactive || 0, fill: chartConfig.inactive.color },
     { status: "maintenance", value: data.maintenance || 0, fill: chartConfig.maintenance.color },
-  ].filter(item => item.value > 0); // Only show categories with data
+  ].filter(item => item.value > 0); 
 
   return (
     <Card className="flex flex-col  bg-slate-700">

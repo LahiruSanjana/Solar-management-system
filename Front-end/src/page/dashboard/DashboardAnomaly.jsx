@@ -76,7 +76,6 @@ const DashboardAnomaly = () => {
     );
   }
 
-  // Calculate anomalies
   const avgEnergy = energyData.reduce((sum, item) => sum + item.totalEnergy, 0) / (energyData.length || 1);
   const stdDev = Math.sqrt(
     energyData.reduce((sum, item) => sum + Math.pow(item.totalEnergy - avgEnergy, 2), 0) / (energyData.length || 1)
@@ -130,10 +129,8 @@ const DashboardAnomaly = () => {
     };
   });
 
-  // Check for system issues
   const systemIssues = [];
   
-  // Check if unit is inactive
   if (solarUnit.status !== "ACTIVE") {
     systemIssues.push({
       type: "System Inactive",
@@ -146,7 +143,6 @@ const DashboardAnomaly = () => {
     });
   }
 
-  // Check for consecutive low production days
   let consecutiveLowDays = 0;
   energyData.forEach(item => {
     if (item.totalEnergy < avgEnergy * 0.5) {

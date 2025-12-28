@@ -52,9 +52,7 @@ export default function ChartAreaDefault({ solarUnitId }) {
 
   const energyQuery24 = useGetLast24HoursEnergyDataQuery(
     { id: solarUnitId },
-    //{ skip: !user?._id || selectedDay !== 24 }
   )
-  console.log("SolarUnitId in Datachart:", energyQuery24);
 
   const energyRecords = selectedDay === 24 ? energyQuery24.data || [] : energyQuery7or30.data || []
   const isLoading = selectedDay === 24 ? energyQuery24.isLoading : energyQuery7or30.isLoading

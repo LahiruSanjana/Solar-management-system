@@ -4,15 +4,11 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Calendar, Zap, Activity, AlertCircle, CheckCircle } from "lucide-react";
 import { z } from "zod";
-
-// FIX: Removed wrong import
-// import { Label } from "recharts";
 import { Label } from "@/components/ui/label";
 import { useCreateSolarUnitMutation } from "@/lib/redux/Query";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// ✅ Zod validation schema (corrected)
 const solarUnitSchema = z.object({
   serialNumber: z.string()
     .min(3, "Serial number must be at least 3 characters")
@@ -113,7 +109,7 @@ const SolarUnitAdd = () => {
       const result = await createSolarUnit({
         serialNumber: formData.serialNumber,
         capacity: Number(formData.capacity),
-        installationDate: new Date(formData.installationDate).toISOString(), // ⭐ FIXED
+        installationDate: new Date(formData.installationDate).toISOString(), 
         status: formData.status,
         userId: formData.userId || undefined
       }).unwrap();

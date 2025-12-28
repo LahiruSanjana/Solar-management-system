@@ -44,8 +44,8 @@ const DashboardAnalytics = () => {
   const [timeRange, setTimeRange] = useState("7");
   const { data: solarUnit, isLoading: isLoadingSolarUnit } = useGetSolarUnitsByClerkIdQuery();
 
-  const { data: energyData = [], isLoading: isLoadingEnergy } = useGetEnergyGenerationRecordsQuery(
-    { id: solarUnit?._id, groupBy: "date", limit: timeRange },
+  const { data: allEnergyData = [], isLoading: isLoadingEnergy } = useGetEnergyGenerationRecordsQuery(
+    { id: solarUnit?._id, groupBy: "date", limit: parseInt(timeRange) * 2 },
     { skip: !solarUnit?._id }
   );
 
@@ -75,32 +75,48 @@ const DashboardAnalytics = () => {
     );
   }
 
+  const energyData = allEnergyData.slice(0, parseInt(timeRange));
+  const previousEnergyData = allEnergyData.slice(parseInt(timeRange), parseInt(timeRange) * 2);
+
   const chartData = energyData.map((item) => ({
     date: format(toDate(item._id.date), 'MMM d'),
     energy: parseFloat(item.totalEnergy.toFixed(2)),
-  }));
+  })).reverse(); 
 
   const capacityFactorData = energyData.map((item) => ({
     date: format(toDate(item._id.date), 'MMM d'),
     capacityFactor: parseFloat(((item.totalEnergy / (solarUnit.capacity)) * 100).toFixed(2)),
-  }));
+  })).reverse();
 
   const hourlyData = last24HoursData.slice(0, 12).reverse().map((item) => ({
     time: format(new Date(item.timestamp), 'HH:mm'),
     kWh: parseFloat((item.generatedEnergy / 1000).toFixed(2)),
   }));
+
   const totalEnergy = energyData.reduce((sum, item) => sum + item.totalEnergy, 0);
+  const previousTotalEnergy = previousEnergyData.reduce((sum, item) => sum + item.totalEnergy, 0);
+  
   const avgEnergy = totalEnergy / (energyData.length || 1);
   const peakEnergy = Math.max(...energyData.map(item => item.totalEnergy), 0);
   const estimatedSavings = totalEnergy * 0.12;
   const efficiency = solarUnit?.status === "ACTIVE" ? 88.5 : 0;
 
+
+  const calculateChange = (current, previous) => {
+    if (previous === 0) return current > 0 ? 100 : 0;
+    return ((current - previous) / previous) * 100;
+  };
+
+  const energyChangePercent = calculateChange(totalEnergy, previousTotalEnergy);
+  const energyChangeFormatted = `${energyChangePercent > 0 ? "+" : ""}${Math.abs(energyChangePercent).toFixed(1)}%`;
+  const energyTrend = energyChangePercent >= 0 ? "up" : "down";
+
   const kpiData = [
     {
       title: "Total Energy Generated",
       value: `${totalEnergy.toFixed(1)} kWh`,
-      change: "+12.5%",
-      trend: "up",
+      change: energyChangeFormatted,
+      trend: energyTrend,
       icon: Zap,
       color: "text-yellow-600",
       bgColor: "bg-yellow-50",
@@ -108,8 +124,8 @@ const DashboardAnalytics = () => {
     {
       title: "Average Daily Output",
       value: `${avgEnergy.toFixed(1)} kWh`,
-      change: "+5.3%",
-      trend: "up",
+      change: energyChangeFormatted, 
+      trend: energyTrend,
       icon: Sun,
       color: "text-orange-600",
       bgColor: "bg-orange-50",
@@ -117,7 +133,7 @@ const DashboardAnalytics = () => {
     {
       title: "System Efficiency",
       value: `${efficiency.toFixed(1)}%`,
-      change: "+2.1%",
+      change: "+0.0%", 
       trend: "up",
       icon: Activity,
       color: "text-green-600",
@@ -126,8 +142,8 @@ const DashboardAnalytics = () => {
     {
       title: "Cost Savings",
       value: `$${estimatedSavings.toFixed(2)}`,
-      change: "+8.7%",
-      trend: "up",
+      change: energyChangeFormatted,
+      trend: energyTrend,
       icon: DollarSign,
       color: "text-blue-600",
       bgColor: "bg-blue-50",

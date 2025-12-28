@@ -70,7 +70,7 @@ const Maindashboard = () => {
             <div className="space-y-1 flex flex-col justify-center items-center">
               <p className="text-slate-600 text-sm font-medium">Total users</p>
               <p className="text-5xl font-bold bg-gradient-to-br from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                
+                {User?.length || 0}
               </p>
               <p className="text-xs text-slate-500 mt-2">Active solar installations</p>
             </div>

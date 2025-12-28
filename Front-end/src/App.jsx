@@ -16,7 +16,6 @@ import Admindashboard from './page/admin/Admindashboard.jsx';
 import SolarUnitAdd from './page/admin/SolarUnitAdd';
 import View from './page/admin/View';
 import SettingsPage from './page/admin/SettingsPage';
-import UserDetails from './page/admin/components/user/Userdetails';
 import Editdetails from './page/admin/Editdetails';
 import DashboardAnalytics from './page/dashboard/DashboardAnalytics';
 import Anomaly from './page/dashboard/Anomaly';
@@ -25,6 +24,7 @@ import PaymentPage from './page/invoices/payment.page.jsx';
 import PaymentCompletePage from './page/invoices/complete.page';
 import UserdetailsEdit from './page/admin/components/user/UserdetailsEdit.jsx';
 import AdminInvoicesPage from './page/admin/InvoicePage';
+import Usersidebar from './page/admin/components/user/Usersidebar';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -59,7 +59,7 @@ function App() {
                   <Route path="/admin/solar-units" element={<SolarUnitAdd/>} />
                   <Route path="/admin/solar-units/view/:id" element={<View/>} />
                   <Route path="/admin/settings" element={<SettingsPage/>} />
-                  <Route path="/admin/user" element={<UserDetails/>} />
+                  <Route path="/admin/user" element={<Usersidebar/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
                   <Route path="/admin/user/edit/:id" element={<UserdetailsEdit/>} />
                   <Route path="/admin/Invoices" element={<AdminInvoicesPage />} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Settings,
   Bell,
@@ -30,30 +35,48 @@ import {
 
 const AdminSettings = () => {
   const { user } = useUser();
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [settings, setSettings] = useState({
-    siteName: "Solar Energy Management System",
-    language: "en",
-    timezone: "UTC",
-    dateFormat: "MM/DD/YYYY",
-    emailNotifications: true,
-    systemAlerts: true,
-    maintenanceAlerts: true,
-    performanceAlerts: true,
-    notificationEmail: user?.emailAddresses[0]?.emailAddress || "",
-    dataRetention: "365",
-    backupFrequency: "daily",
-    autoBackup: true,
-    lowEnergyThreshold: "20",
-    highEnergyThreshold: "90",
-    alertThreshold: "15",
-    sessionTimeout: "30",
-    twoFactorAuth: false,
-    passwordExpiry: "90",
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem("isDarkMode") === "true";
+  });
+
+  const [settings, setSettings] = useState(() => {
+    const savedSettings = localStorage.getItem("adminSettings");
+    return savedSettings ? JSON.parse(savedSettings) : {
+      siteName: "Solar Energy Management System",
+      language: "en",
+      timezone: "UTC",
+      dateFormat: "MM/DD/YYYY",
+      emailNotifications: true,
+      systemAlerts: true,
+      maintenanceAlerts: true,
+      performanceAlerts: true,
+      notificationEmail: user?.emailAddresses[0]?.emailAddress || "",
+      dataRetention: "365",
+      backupFrequency: "daily",
+      autoBackup: true,
+      lowEnergyThreshold: "20",
+      highEnergyThreshold: "90",
+      alertThreshold: "15",
+      sessionTimeout: "30",
+      twoFactorAuth: false,
+      passwordExpiry: "90",
+    };
   });
 
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("isDarkMode", isDarkMode);
+  }, [isDarkMode]);
+  useEffect(() => {
+    document.title = settings.siteName;
+  }, [settings.siteName]);
 
   const handleInputChange = (field, value) => {
     setSettings(prev => ({
@@ -66,6 +89,7 @@ const AdminSettings = () => {
     setIsSaving(true);
     setSaveMessage("");
     setTimeout(() => {
+      localStorage.setItem("adminSettings", JSON.stringify(settings));
       setIsSaving(false);
       setSaveMessage("Settings saved successfully!");
       setTimeout(() => setSaveMessage(""), 3000);
@@ -74,7 +98,7 @@ const AdminSettings = () => {
 
   const handleResetSettings = () => {
     if (window.confirm("Are you sure you want to reset all settings to default?")) {
-      setSettings({
+      const defaultSettings = {
         siteName: "Solar Energy Management System",
         language: "en",
         timezone: "UTC",
@@ -93,7 +117,9 @@ const AdminSettings = () => {
         sessionTimeout: "30",
         twoFactorAuth: false,
         passwordExpiry: "90",
-      });
+      };
+      setSettings(defaultSettings);
+      localStorage.setItem("adminSettings", JSON.stringify(defaultSettings));
       setSaveMessage("Settings reset to default!");
       setTimeout(() => setSaveMessage(""), 3000);
     }
@@ -102,12 +128,56 @@ const AdminSettings = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <Settings className="h-8 w-8 text-blue-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Admin Settings</h1>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <Settings className="h-8 w-8 text-blue-600" />
+            <h1 className="text-3xl font-bold text-gray-900">Admin Settings</h1>
+          </div>
+          <p className="text-gray-600">Manage system configuration and preferences</p>
         </div>
-        <p className="text-gray-600">Manage system configuration and preferences</p>
+
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">Quick Settings</Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <h4 className="font-medium leading-none">Quick Settings</h4>
+                <p className="text-sm text-muted-foreground">
+                  Manage key settings instantly.
+                </p>
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Dark Mode</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                  >
+                    {isDarkMode ? (
+                      <Moon className="h-4 w-4" />
+                    ) : (
+                      <Sun className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Notifications</span>
+                  <Button
+                    variant={settings.emailNotifications ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => handleInputChange("emailNotifications", !settings.emailNotifications)}
+                  >
+                    {settings.emailNotifications ? "On" : "Off"}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Save Message */}
