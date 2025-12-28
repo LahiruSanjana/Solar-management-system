@@ -24,7 +24,7 @@ import InvoicesPage from './page/invoices/invoices.page.jsx';
 import PaymentPage from './page/invoices/payment.page.jsx';
 import PaymentCompletePage from './page/invoices/complete.page';
 import UserdetailsEdit from './page/admin/components/user/UserdetailsEdit.jsx';
-import InvoicesPage from './page/admin/InvoicePage';
+import AdminInvoicesPage from './page/admin/InvoicePage';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -62,7 +62,7 @@ function App() {
                   <Route path="/admin/user" element={<UserDetails/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
                   <Route path="/admin/user/edit/:id" element={<UserdetailsEdit/>} />
-                  <Route path="/admin/Invoices" element={<InvoicesPage />} />
+                  <Route path="/admin/Invoices" element={<AdminInvoicesPage />} />
                 </Route>
               </Route>
             </Route>
