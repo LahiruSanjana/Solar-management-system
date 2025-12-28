@@ -2,7 +2,7 @@ import { AppSidebar } from "@/Component/Appslide";
 import { LayoutDashboard ,Settings,CircleUserRound,Receipt} from "lucide-react";
 import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar";
 import Maindashboard from "./Maindashboard";
-import Userdetails from "./components/user/Userdetails";
+
 
 const Admindashboard = () => {
   const items = [

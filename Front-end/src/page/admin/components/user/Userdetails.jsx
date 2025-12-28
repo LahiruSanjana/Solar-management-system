@@ -1,6 +1,5 @@
 import {   useGetAllUsersQuery } from "@/lib/redux/Query";
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Plus, Search, Zap, TrendingUp, Activity,ArrowLeft } from "lucide-react"
 import UserDetailsTable from "./UserDetailsTabel"
 import { useState } from "react"

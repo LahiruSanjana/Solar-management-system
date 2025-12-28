@@ -161,9 +161,11 @@ export default function ChartAreaDefault({ solarUnitId }) {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              {energyGenerationRecords[0]?.date} -{" "}
-              {energyGenerationRecords[energyGenerationRecords.length - 1]?.date}
+            <div className="flex items-center gap-2 font-medium leading-none">
+              Total Output: {energyGenerationRecords.reduce((acc, curr) => acc + curr.energy, 0).toFixed(2)} kWh
+            </div>
+            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+              {energyGenerationRecords[0]?.date} - {energyGenerationRecords[energyGenerationRecords.length - 1]?.date}
             </div>
           </div>
         </div>

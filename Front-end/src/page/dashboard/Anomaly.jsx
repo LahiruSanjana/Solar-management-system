@@ -282,31 +282,6 @@ const Anomaly = () => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <Select >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue>
-                    {selectedValue === DEFAULT_CONFIG ? "Default Thresholds" : "Custom Thresholds"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="24" className="flex flex-col gap-4 p-4">
-                      Cloud Shading Threshold
-                      <Slider
-                        defaultValue={[50]}
-                        min={0}
-                        max={100}
-                        step={1}
-                        className="[&>.relative]:h-1 mt-2"
-                      />
-                    </SelectItem>
-                    <SelectItem value="30">Rainy Day Threshold</SelectItem>
-                    <SelectItem value="30">Max System Capacity</SelectItem>
-                    <SelectItem value="30">Frozen Count Limit</SelectItem>
-                    <SelectItem value="30">Zero Output Days Limit</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
             </div>
           </CardTitle>
           <CardDescription>Daily production vs Expected Average</CardDescription>

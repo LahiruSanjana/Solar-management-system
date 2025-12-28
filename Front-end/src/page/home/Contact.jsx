@@ -2,8 +2,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 const Contact = () => {
     return (
-        <footer className="w-full bg-slate-950 text-slate-200 py-8 mt-auto">
-            <div className="container mx-auto px-4">
+        <div className=" bg-slate-950 text-slate-200 py-8 mt-auto">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-bold text-white mb-1">Contact US</h3>
@@ -23,8 +22,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+        </div>
     );
 }
 
