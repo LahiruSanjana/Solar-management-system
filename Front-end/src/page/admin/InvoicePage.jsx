@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/Component/Appslide";
-import { LayoutDashboard, MessageSquareWarning, Settings, CircleUserRound } from "lucide-react";
+import { LayoutDashboard, MessageSquareWarning, Settings, CircleUserRound,Receipt } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Invoices from "./components/Invoices";
 
