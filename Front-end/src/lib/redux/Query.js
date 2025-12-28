@@ -96,7 +96,7 @@ export const api = createApi({
       query: (id) => `invoices/${id}`,
     }),
     getAllInvoices: builder.query({
-      query: () => `invoices/`,
+      query: () => `admin/invoices/`,
     }),
     getMyinvoices: builder.query({
       query: () => `invoices/`,

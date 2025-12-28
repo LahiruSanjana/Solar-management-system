@@ -24,9 +24,9 @@ const Invioices = () => {
     }
 
     const filteredInvoices = Invoices?.filter((invoice) =>
-        invoice._id.toLowerCase().includes(search.toLowerCase()) ||
-        invoice.paymentStatus.toLowerCase().includes(search.toLowerCase()) ||
-        invoice.userId?.email.toLowerCase().includes(search.toLowerCase())
+        invoice._id?.toLowerCase().includes(search.toLowerCase()) ||
+        invoice.paymentStatus?.toLowerCase().includes(search.toLowerCase()) ||
+        (invoice.userId?.email && invoice.userId.email.toLowerCase().includes(search.toLowerCase()))
     );
 
     return (
