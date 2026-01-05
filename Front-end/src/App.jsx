@@ -62,7 +62,7 @@ function App() {
                   <Route path="/admin/user" element={<Usersidebar/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
                   <Route path="/admin/user/edit/:id" element={<UserdetailsEdit/>} />
-                  <Route path="/admin/Invoices" element={<AdminInvoicesPage />} />
+                  <Route path="/admin/invoices" element={<AdminInvoicesPage />} />
                 </Route>
               </Route>
             </Route>

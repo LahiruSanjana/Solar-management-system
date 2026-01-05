@@ -20,7 +20,7 @@ const InvoicesPage = () => {
       {
       title: "Invoices",
       icon:Receipt,
-      url: "admin/Invoices",
+      url: "/admin/invoices",
       }
   ];
 
