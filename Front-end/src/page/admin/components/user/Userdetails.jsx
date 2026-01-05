@@ -33,14 +33,6 @@ const Maindashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8 rounded-lg">
       <div className="max-w-7xl mx-auto">
-        <div>
-          <Button className='border-black px-4 py-2'>
-            <span className="text-white text-lg font-bold">
-              <ArrowLeft/>
-              Back
-            </span>
-          </Button>
-        </div>
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">

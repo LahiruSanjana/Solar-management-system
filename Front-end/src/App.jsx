@@ -15,7 +15,6 @@ import AuthorizedLayout from './layout/authorized.layout';
 import Admindashboard from './page/admin/Admindashboard.jsx';
 import SolarUnitAdd from './page/admin/SolarUnitAdd';
 import View from './page/admin/View';
-import SettingsPage from './page/admin/SettingsPage';
 import Editdetails from './page/admin/Editdetails';
 import DashboardAnalytics from './page/dashboard/DashboardAnalytics';
 import Anomaly from './page/dashboard/Anomaly';
@@ -58,7 +57,6 @@ function App() {
                   <Route path="/admin" element={<Admindashboard />} />
                   <Route path="/admin/solar-units" element={<SolarUnitAdd/>} />
                   <Route path="/admin/solar-units/view/:id" element={<View/>} />
-                  <Route path="/admin/settings" element={<SettingsPage/>} />
                   <Route path="/admin/user" element={<Usersidebar/>} />
                   <Route path="/admin/Editdetails/:id" element={<Editdetails/>} />
                   <Route path="/admin/user/edit/:id" element={<UserdetailsEdit/>} />
