@@ -46,12 +46,15 @@ export const api = createApi({
 
     getSolarStatusStats: builder.query({
       query: () => `solar-units/stats`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     getAllSolarUnitsSum: builder.query({
       query: () => `solar-units/total`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     getAllSolarUnits: builder.query({
       query: () => `solar-units/`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     createSolarUnit: builder.mutation({
       query: (body) => ({
@@ -65,6 +68,7 @@ export const api = createApi({
     }),
     getAllUsers:builder.query({
       query: () => `users/`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
 
     deleteSolarUnit: builder.mutation({
@@ -91,15 +95,18 @@ export const api = createApi({
     }),
     getSessionStatus: builder.query({
       query: (sessionId) => `payments/session-status?sessionId=${sessionId}`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     getInvoiceById: builder.query({
       query: (id) => `invoices/${id}`,
     }),
     getAllInvoices: builder.query({
       query: () => `admin/invoices/`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     getMyinvoices: builder.query({
       query: () => `invoices/`,
+      providesTags: [{ type: 'SolarUnitList', id: 'LIST' }],
     }),
     updateUser: builder.mutation({
       query: ({ id, body }) => ({

@@ -18,7 +18,7 @@ const Usersidebar = () => {
     {
       title: "Invoices",
       icon: Receipt,
-      url: "admin/Invoices",
+      url: "admin/invoices",
     }
   ];
   return (
